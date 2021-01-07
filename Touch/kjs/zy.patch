@@ -1,0 +1,26 @@
+diff --git a/app/build.gradle b/app/build.gradle
+index e719c9b..a34acb5 100644
+--- a/app/build.gradle
++++ b/app/build.gradle
+@@ -178,6 +178,12 @@ android {
+             keyAlias 'cicoe'
+             keyPassword 'cicoerd'
+         }
++        zy656 {
++            storeFile file("../../kjs/zy656.jks")
++            storePassword 'cicoerd'
++            keyAlias 'cicoe'
++            keyPassword 'cicoerd'
++        }
+         xs_828 {
+             storeFile file("../../kjs/xs.jks")
+             storePassword 'cicoerd'
+@@ -325,6 +331,8 @@ android {
+             signingConfig null
+             if (sign.equals("xs648")) {
+                 signingConfig signingConfigs.xs_648
++            } else if (sign.equals("zy656")) {
++                signingConfig signingConfigs.zy656
+             } else if (sign.equals("xs828")) {
+                 signingConfig signingConfigs.xs_828
+             } else if (sign.equals("xs811")) {

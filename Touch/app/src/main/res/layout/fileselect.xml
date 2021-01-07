@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+    android:layout_width="@dimen/six_hundred"
+    android:layout_height="@dimen/five_hundred"
+    android:orientation="vertical"
+    android:background="@drawable/img_board_rect"
+    android:layout_centerInParent="true">
+
+        <HorizontalScrollView
+            android:id="@+id/file_scrollbar"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/thirty"
+            >
+
+            <TextView
+                android:id="@+id/mPath"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/three"
+                android:textSize="@dimen/fifteen"
+                android:textColor="@color/black_color"
+                >
+            </TextView>
+        </HorizontalScrollView>
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/four_hundred_and_thirty"
+            >
+        </ListView>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/forty"
+            android:orientation="horizontal"
+            android:background="@color/white_color"
+            >
+            <Button
+                android:id="@+id/buttonConfirm"
+                android:layout_width="@dimen/two_hundred_ninety_nine"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/btn_font_size"
+                android:textColor="@color/black_color"
+                android:background="@color/blue_color"
+                android:text="确定"
+                />
+            <TextView
+                android:layout_width="@dimen/two"
+                android:layout_height="match_parent"
+                android:background="@color/white_color"/>
+            <Button
+                android:id="@+id/buttonCancle"
+                android:layout_width="@dimen/two_hundred_ninety_nine"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/btn_font_size"
+                android:textColor="@color/black_color"
+                android:background="@color/blue_color"
+                android:text="取消"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

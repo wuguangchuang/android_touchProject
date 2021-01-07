@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="signalColorS">
+        <item>#355F6D</item>
+        <item>#2962FF</item>
+        <item>#BDDD4F</item>
+        <item>#765728</item>
+        <item>#311B92</item>
+        <item>#B388FF</item>
+        <item>#1B5E20</item>
+        <item>#479500</item>
+    </array>
+
+
+
+</resources>

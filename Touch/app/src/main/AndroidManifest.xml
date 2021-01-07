@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    package="com.example.touch">
+
+<!--    android:sharedUserId="android.uid.system"-->
+
+    <!--    <uses-feature android:name="android.hardware.usb.host" android:required="true"></uses-feature>-->
+<!--    <uses-permission android:name="android.permission.HARDWARE_TEST"-->
+<!--        tools:ignore="ProtectedPermissions" />-->
+    <uses-feature android:name="android.hardware.usb.host" android:required="true"></uses-feature>
+    <uses-permission android:name="android.permission.HARDWARE_TEST"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_FORMAT_FILESYSTEMS"
+        android:sharedUserId="android.uid.system"
+        tools:ignore="ProtectedPermissions" />
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/icon"
+        android:label="TouchAssistant"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.NoActionBar"
+        >
+
+        <activity android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden|navigation|touchscreen"
+            android:launchMode="singleInstance"
+           >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".MyFileManager"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
+        <activity
+            android:name=".MySaveFileManager"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
+<!--        android:theme="@android:style/Theme.Translucent.NoTitleBar">设置背景透明-->
+        <activity
+            android:name=".MyCailbrateManager">
+        </activity>
+    </application>
+
+</manifest>

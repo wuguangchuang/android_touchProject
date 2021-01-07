@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+    android:layout_width="@dimen/six_hundred"
+    android:layout_height="@dimen/five_hundred"
+    android:orientation="vertical"
+    android:background="@drawable/img_board_rect"
+    android:layout_centerInParent="true">
+
+        <HorizontalScrollView
+            android:id="@+id/save_file_scrollbar"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/thirty"
+            >
+
+            <TextView
+                android:id="@+id/show_path"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/three"
+                android:textSize="@dimen/fifteen"
+                android:textColor="@color/black_color"
+                >
+            </TextView>
+        </HorizontalScrollView>
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/four_hundred_and_ten"
+            >
+        </ListView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sixty"
+            android:layout_marginTop="@dimen/two">
+<!--            android:gravity="center"-->
+            <LinearLayout
+                android:id="@+id/file_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/thirty"
+                android:orientation="horizontal"
+                android:background="@color/white_color"
+                >
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:text="文件名:"
+                    android:textColor="@color/black_color"
+                    android:textStyle="normal"
+                    android:gravity="center"
+                    android:layout_weight="0"/>
+                <EditText
+                    android:id="@+id/save_file_editText"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/thirty"
+                    android:background="@drawable/img_board_rect"
+                    android:text=""
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/three"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/thirty"
+                android:orientation="horizontal"
+                android:layout_below="@id/file_linearLayout"
+                android:background="@color/white_color"
+                android:layout_marginTop="@dimen/two">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/thirty"
+                    android:layout_weight="1"/>
+                <Button
+                    android:id="@+id/save_btn"
+                    android:layout_width="@dimen/one_hundred"
+                    android:layout_height="@dimen/thirty"
+                    android:textSize="@dimen/btn_font_size"
+                    android:textColor="@color/black_color"
+                    android:background="@color/blue_color"
+                    android:text="保存"
+                    android:layout_weight="0"
+                    android:layout_marginRight="@dimen/five"
+                    />
+                <Button
+                    android:id="@+id/cancel_save_btn"
+                    android:layout_width="@dimen/one_hundred"
+                    android:layout_height="@dimen/thirty"
+                    android:textSize="@dimen/btn_font_size"
+                    android:textColor="@color/black_color"
+                    android:background="@color/blue_color"
+                    android:text="取消"
+                    android:layout_marginRight="@dimen/five"
+                    android:layout_weight="0"
+                    />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

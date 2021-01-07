@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <usb-device vendor-id="5345" product-id="13568" />
+</resources>
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<resources>-->
+    <!--    <usb-device-->
+    <!--        product-id="13568"-->
+    <!--        vendor-id="5345"-->
+    <!--       />-->
+    <!--    <usb-device-->
+    <!--        product-id="19"-->
+    <!--        vendor-id="44759"-->
+    <!--        />-->
+    <!--    <usb-device-->
+    <!--        product-id="65244"-->
+    <!--        vendor-id="44759"-->
+    <!--        />-->
+    <!--</resources>-->

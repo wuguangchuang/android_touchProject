@@ -1,0 +1,67 @@
+{
+  "devices": [
+    {
+      "vid": "0xAED7",
+      "pid": "0x0013",
+      "path": "col01",
+      "report_id": "0xCD",
+      "bootloader": 0
+    },
+    {
+      "vid": "0x14E1",
+      "pid": "0x3500",
+      "path": "col01",
+      "report_id": "0xCD",
+      "bootloader": 0
+    },
+	{
+      "vid": "0x14E1",
+      "pid": "0x3400",
+      "path": "col01",
+      "report_id": "0xCD",
+      "bootloader": 0
+    },
+	{
+      "vid": "0x14E1",
+      "pid": "0x2500",
+      "path": "col01",
+      "report_id": "0xCD",
+      "bootloader": 0
+    },
+	{
+      "vid": "0x1FF7",
+      "pid": "0x0013",
+      "path": "col01",
+      "report_id": "0xCD",
+      "bootloader": 0
+    },
+    {
+      "vid": "0xAED7",
+      "pid": "0xFEDC",
+      "path": "col01",
+      "report_id": "0xCD",
+      "bootloader": 1
+    },
+	{
+      "vid": "0x24B8",
+      "pid": "0x0040",
+      "path": "col01",
+      "report_id": "0xCD",
+      "bootloader": 0
+	},
+	{
+      "vid": "0x1101",
+      "pid": "0x0010",
+      "path": "col01",
+      "report_id": "0xCD",
+      "bootloader": 0
+	},
+	{
+      "vid": "0x1FF7",
+      "pid": "0x001D",
+      "path": "col01",
+      "report_id": "0xCD",
+      "bootloader": 0
+	}
+  ]
+}

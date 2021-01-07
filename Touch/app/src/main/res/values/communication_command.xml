@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="TLED_ON">0x11</integer>
+    <integer name="TLED_OFF">0x10</integer>
+    <integer name="TESTING_ON">0x01</integer>
+    <integer name="TESTING_OFF">0x00</integer>
+<!--     master command-->
+    <integer name="TOUCH_M_CMD_DEVICE_INFO">0x01</integer>
+    <integer name="TOUCH_M_CMD_FIREWARE_UPGRADE">0x02</integer>
+    <integer name="TOUCH_M_CMD_COORDS">0x03</integer>
+    <integer name="TOUCH_M_CMD_HARDWARE">0x04</integer>
+    <integer name="TOUCH_M_CMD_CALIBRATION">0x05</integer>
+
+    <integer name="TOUCH_M_CMD_RESPONSE">0xFE</integer>
+<!--    sub command-->
+    <integer name="TOUCH_S_CMD_GET_FIRMWARE_INFO">0x01</integer>
+    <integer name="TOUCH_S_CMD_GET_MCU_INFO">0x03</integer>
+    <integer name="TOUCH_S_CMD_GET_STRING_INFO">0x04</integer>
+    <integer name="TOUCH_S_CMD_GET_SIGNAL_TEST_ITEM">0x05</integer>
+    <integer name="TOUCH_S_CMD_GET_SIGNAL_TEST_STAN">0x06</integer>
+    <integer name="TOUCH_S_CMD_GET_SIGNAL_DATA">0x07</integer>
+    <integer name="TOUCH_S_CMD_RECONNECT_USB">0x0E</integer>
+<!--    状态应答-->
+    <integer name="TOUCH_S_CMD_UNKNOWN">0x01</integer>
+    <integer name="TOUCH_S_CMD_FAILED">0x02</integer>
+    <integer name="TOUCH_S_CMD_SUCCEED">0x03</integer>
+
+    <integer name="INDICATOR_LED_OFF">0x00</integer>
+    <integer name="INDICATOR_LED_ON">0x01</integer>
+    <integer name="INDICATOR_LED_AUTO">0x02</integer>
+    <integer name="INDICATOR_LED_DEFAULT_AUTO">0x03</integer>
+    <integer name="TOUCH_S_CMD_RESET_DEVICE">0x01</integer>
+    <integer name="TOUCH_S_CMD_IAP_START">0x02</integer>
+    <integer name="TOUCH_S_CMD_IAP_DOWNLOAD">0x03</integer>
+    <integer name="TOUCH_S_CMD_IAP_VERIFY">0x04</integer>
+    <integer name="TOUCH_S_CMD_IAP_FINISHED">0x05</integer>
+    <integer name="TOUCH_S_CMD_SIGNAL_INITIAL">0x01</integer>
+    <integer name="TOUCH_S_CMD_SET_TLED">0x05</integer>
+    <integer name="TOUCH_S_CMD_GET_TLED">0x06</integer>
+    <integer name="TOUCH_S_CMD_SET_AGING">0x08</integer>
+    <integer name="TOUCH_S_CMD_SET_INDICATOR_LED_ON">0x07</integer>
+    <integer name="TOUCH_S_CMD_GET_AGING">0x09</integer>
+    <integer name="TOUCH_S_CMD_SET_TESTING">0x0A</integer>
+    <integer name="TOUCH_S_CMD_GET_TESTING">0x0B</integer>
+    <integer name="TOUCH_S_CMD_SET_LOCK_AGC">0x0C</integer>
+    <integer name="TOUCH_S_CMD_GET_LOCK_AGC">0x0D</integer>
+    <integer name="LOCK_AGC_DISABLE">0x00</integer>
+    <integer name="LOCK_AGC_ENABLE">0x01</integer>
+    <integer name="TOUCH_S_CMD_RESPONSE_UNKNONW">0x01</integer>
+    <integer name="TOUCH_S_CMD_RESPONSE_FAILED">0x02</integer>
+    <integer name="TOUCH_S_CMD_RESPONSE_SUCCEED">0x03</integer>
+
+<!--    coords-->
+    <integer name="TOUCH_S_CMD_GET_COORDS_ENABLED">0x01</integer>
+    <integer name="TOUCH_S_CMD_SET_COORDS_ENABLED">0x02</integer>
+    <integer name="TOUCH_S_CMD_GET_COORDS_MODE">0x03</integer>
+    <integer name="TOUCH_S_CMD_SET_COORDS_MODE">0x04</integer>
+    <integer name="TOUCH_S_CMD_GET_ROTATION">0x05</integer>
+    <integer name="TOUCH_S_CMD_SET_ROTATION">0x06</integer>
+    <integer name="TOUCH_S_CMD_GET_REFLECTION">0x07</integer>
+    <integer name="TOUCH_S_CMD_SET_REFLECTION">0x08</integer>
+    <integer name="TOUCH_S_CMD_GET_MACOS_MODE">0x09</integer>
+    <integer name="TOUCH_S_CMD_SET_MACOS_MODE">0x0A</integer>
+<!--    calibration-->
+    <integer name="TOUCH_S_CMD_GET_WORK_MODE">0x01</integer>
+    <integer name="TOUCH_S_CMD_SET_WORK_MODE">0x02</integer>
+    <integer name="TOUCH_S_CMD_GET_CALI_SETTINGS">0x03</integer>
+    <integer name="TOUCH_S_CMD_SET_CALI_SETTINGS">0x04</integer>
+    <integer name="TOUCH_S_CMD_GET_CALI_POINT_DATA">0x05</integer>
+    <integer name="TOUCH_S_CMD_SET_CALI_POINT_DATA">0x06</integer>
+    <integer name="TOUCH_S_CMD_START_CAPTURE">0x07</integer>
+    <integer name="TOUCH_S_CMD_GET_CAPTURE_DATA">0x08</integer>
+    <integer name="TOUCH_S_CMD_SAVE_CALI_DATA">0x09</integer>
+    <integer name="CALIBRATION_MODE_CLOSE">0x00</integer>
+    <integer name="CALIBRATION_MODE_COLLECT">0x01</integer>
+    <integer name="CALIBRATION_MODE_CALIBRATION">0x02</integer>
+    <integer name="COORDS_CHANNEL_USB">0x01</integer>
+    <integer name="COORDS_CHANNEL_SERIAL">0x02</integer>
+    <integer name="COORDS_CHANNEL_ENABLE">0x01</integer>
+    <integer name="COORDS_CHANNEL_DISABLE">0x00</integer>
+    <integer name="COORDS_USB_MODE_MOUSE">0x01</integer>
+    <integer name="COORDS_USB_MODE_TOUCH">0x02</integer>
+    <integer name="COORDS_SERIAL_MODE_TOUCH">0x01</integer>
+    <integer name="COORDS_SERIAL_MODE_TOUCH_WITH_SIZE">0x02</integer>
+    <integer name="COORDS_ROTAION_0">0</integer>
+    <integer name="COORDS_ROTAION_90">1</integer>
+    <integer name="COORDS_ROTAION_180">2</integer>
+    <integer name="COORDS_ROTAION_270">3</integer>
+    <integer name="COORDS_MIRROR_ENABLE">0x01</integer>
+    <integer name="COORDS_MIRROR_DISABLE">0x00</integer>
+
+    <integer name="COORDS_MAC_OS_MODE_10_9">0x01</integer>
+    <integer name="COORDS_MAC_OS_MODE_10_10">0x02</integer>
+    <integer name="SIGNAL_INIT_COMPLETE">0x01</integer>
+    <integer name="SIGNAL_INIT_QUICK">0x02</integer>
+<!--    onboard-->
+    <integer name="TOUCH_S_CMD_START_ONBOARD_TEST">0x02</integer>
+    <integer name="TOUCH_S_CMD_GET_ONBOARD_TEST_ITEM">0x08</integer>
+    <integer name="TOUCH_S_CMD_GET_ONBOARD_TEST_ATTRIBUTE">0x0A</integer>
+    <integer name="TOUCH_S_CMD_GET_ONBOARD_TEST_DATA">0x02</integer>
+    <integer name="TOUCH_S_CMD_GET_ONBOARD_TEST_RESULT">0x0B</integer>
+    <integer name="ONBOARD_TEST_GET_BOARD_COUNT">0x0C</integer>
+    <integer name="ONBOARD_TEST_GET_BOARD_ATTRIBUTE">0x0D</integer>
+    <integer name="ONBOARD_TEST_SWITCH_START">3</integer>
+    <integer name="ONBOARD_TEST_SWITCH_STOP">0x00</integer>
+    <integer name="ONBOARD_TEST_MODE_CLOSE">0x00</integer>
+    <integer name="ONBOARD_TEST_MODE_NOTOUCH">0x01</integer>
+    <integer name="ONBOARD_TEST_MODE_TOUCH">0x01</integer>
+<!--     reset dst-->
+    <integer name="RESET_DST_UNKNOWN">0</integer>
+    <integer name="RESET_DST_BOOLOADER">1</integer>
+    <integer name="RESET_DST_APP">2</integer>
+    <integer name="STI_ADC_X_TB">0</integer>
+    <integer name="STI_ADC_Y_TB">1</integer>
+    <integer name="STI_ADC_X_TM">2</integer>
+    <integer name="STI_ADC_Y_TM">3</integer>
+    <integer name="STI_ADC_X_TF">4</integer>
+    <integer name="STI_ADC_Y_TF">5</integer>
+    <integer name="STI_ORG_X_TB">6</integer>
+    <integer name="STI_ORG_Y_TB">7</integer>
+    <integer name="STI_ORG_X_TM">8</integer>
+    <integer name="STI_ORG_Y_TM">9</integer>
+    <integer name="STI_ORG_X_TF">10</integer>
+    <integer name="STI_ORG_Y_TF">11</integer>
+    <integer name="STI_RAT_X_TB">12</integer>
+    <integer name="STI_RAT_Y_TB">13</integer>
+    <integer name="STI_RAT_X_TM">14</integer>
+    <integer name="STI_RAT_Y_TM">15</integer>
+    <integer name="STI_RAT_X_TF">16</integer>
+    <integer name="STI_RAT_Y_TF">17</integer>
+
+    <integer name="STI_AGC_X_TB">18</integer>
+    <integer name="STI_AGC_Y_TB">19</integer>
+    <integer name="STI_AGC_X_TM">20</integer>
+    <integer name="STI_AGC_Y_TM">21</integer>
+    <integer name="STI_AGC_X_TF">22</integer>
+    <integer name="STI_AGC_Y_TF">23</integer>
+    <integer name="STI_UNT_X_TB">24</integer>
+    <integer name="STI_UNT_Y_TB">25</integer>
+    <integer name="STI_UNT_X_TM">26</integer>
+    <integer name="STI_UNT_Y_TM">27</integer>
+    <integer name="STI_UNT_X_TF">28</integer>
+    <integer name="STI_UNT_Y_TF">29</integer>
+    <integer name="STI_RVR_X_TB">30</integer>
+    <integer name="STI_RVR_Y_TB">31</integer>
+    <integer name="STI_RVR_X_TM">32</integer>
+    <integer name="STI_RVR_Y_TM">33</integer>
+    <integer name="STI_RVR_X_TF">34</integer>
+    <integer name="STI_RVR_Y_TF">35</integer>
+
+
+
+
+
+
+    <integer name="two_line">2</integer>
+
+
+
+
+
+
+
+
+
+
+<!--    <integer name="ONBOARD_TEST_GET_BOARD_ATTRIBUTE">0x0D</integer>-->
+<!--    <integer name="ONBOARD_TEST_SWITCH_START">3</integer>-->
+<!--    <integer name="ONBOARD_TEST_SWITCH_STOP">0x00</integer>-->
+<!--    <integer name="ONBOARD_TEST_MODE_CLOSE">0x00</integer>-->
+<!--    <integer name="ONBOARD_TEST_MODE_NOTOUCH">0x01</integer>-->
+<!--    <integer name="ONBOARD_TEST_MODE_TOUCH">0x01</integer>-->
+
+<!--    #define     0-->
+<!--    #define STI_ADC_Y_TB    1-->
+<!--    #define STI_ADC_X_TM    2-->
+<!--    #define STI_ADC_Y_TM    3-->
+<!--    #define STI_ADC_X_TF    4-->
+<!--    #define STI_ADC_Y_TF    5-->
+<!--    #define STI_ORG_X_TB    6-->
+<!--    #define STI_ORG_Y_TB    7-->
+<!--    #define STI_ORG_X_TM    8-->
+<!--    #define STI_ORG_Y_TM    9-->
+<!--    #define STI_ORG_X_TF    10-->
+<!--    #define STI_ORG_Y_TF    11-->
+<!--    #define STI_RAT_X_TB    12-->
+<!--    #define STI_RAT_Y_TB    13-->
+<!--    #define STI_RAT_X_TM    14-->
+<!--    #define STI_RAT_Y_TM    15-->
+<!--    #define STI_RAT_X_TF    16-->
+<!--    #define STI_RAT_Y_TF    17-->
+<!--    #define STI_AGC_X_TB    18-->
+<!--    #define STI_AGC_Y_TB    19-->
+<!--    #define STI_AGC_X_TM    20-->
+<!--    #define STI_AGC_Y_TM    21-->
+<!--    #define STI_AGC_X_TF    22-->
+<!--    #define STI_AGC_Y_TF    23-->
+<!--    #define STI_UNT_X_TB    24-->
+<!--    #define STI_UNT_Y_TB    25-->
+<!--    #define STI_UNT_X_TM    26-->
+<!--    #define STI_UNT_Y_TM    27-->
+<!--    #define STI_UNT_X_TF    28-->
+<!--    #define STI_UNT_Y_TF    29-->
+<!--    #define STI_RVR_X_TB    30-->
+<!--    #define STI_RVR_Y_TB    31-->
+<!--    #define STI_RVR_X_TM    32-->
+<!--    #define STI_RVR_Y_TM    33-->
+<!--    #define STI_RVR_X_TF    34-->
+<!--    #define STI_RVR_Y_TF    35-->
+<!--    #define STI_ADC_X_TB_ALL    36-->
+<!--    #define STI_ADC_Y_TB_ALL    37-->
+<!--    #define STI_ADC_X_TM_ALL    38-->
+<!--    #define STI_ADC_Y_TM_ALL    39-->
+<!--    #define STI_ADC_X_TF_ALL    40-->
+<!--    #define STI_ADC_Y_TF_ALL    41-->
+<!--    #define STI_ORG_X_TB_ALL    42-->
+<!--    #define STI_ORG_Y_TB_ALL    43-->
+<!--    #define STI_ORG_X_TM_ALL    44-->
+<!--    #define STI_ORG_Y_TM_ALL    45-->
+<!--    #define STI_ORG_X_TF_ALL    46-->
+<!--    #define STI_ORG_Y_TF_ALL    47-->
+<!--    #define STI_RAT_X_TB_ALL    48-->
+<!--    #define STI_RAT_Y_TB_ALL    49-->
+<!--    #define STI_RAT_X_TM_ALL    50-->
+<!--    #define STI_RAT_Y_TM_ALL    51-->
+<!--    #define STI_RAT_X_TF_ALL    52-->
+<!--    #define STI_RAT_Y_TF_ALL    53-->
+<!--    #define STI_AGC_X_TB_ALL    54-->
+<!--    #define STI_AGC_Y_TB_ALL    55-->
+<!--    #define STI_AGC_X_TM_ALL    56-->
+<!--    #define STI_AGC_Y_TM_ALL    57-->
+<!--    #define STI_AGC_X_TF_ALL    58-->
+<!--    #define STI_AGC_Y_TF_ALL    59-->
+
+    <integer name="STE_DEV_GRAPH">0x00000001</integer>
+    <integer name="STE_DEV_TEST">0x00000002</integer>
+    <integer name="STE_FACTORY_GRAPH">0x00000004</integer>
+    <integer name="STE_FACTORY_TEST">0x00000008</integer>
+    <integer name="STE_PCBA_CUSTOMER_GRAPH">0x00000010</integer>
+    <integer name="STE_PCBA_CUSTOMER_TEST">0x00000020</integer>
+    <integer name="STE_END_USER_GRAPH">0x00000040</integer>
+    <integer name="STE_END_USER_TEST">0x00000080</integer>
+    <integer name="STE_ALL_ITEMS">0xFFFFFFF</integer>
+
+    <integer name="TOUCH_STRING_TYPE_VENDOR">0x01</integer>
+    <integer name="TOUCH_STRING_TYPE_MODEL">0x02</integer>
+    <integer name="TOUCH_STRING_TYPE_CUSTOM">0x03</integer>
+
+
+</resources>

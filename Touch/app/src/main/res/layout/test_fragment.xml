@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/startTestBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/default_height"
+        android:minWidth="@dimen/button_minWidth"
+        android:minHeight="@dimen/button_minHeight"
+        android:textSize="@dimen/btn_font_size"
+        android:background="@color/blue_color"
+        android:textColor="@color/white_color"
+        android:text="@string/test"
+        android:layout_marginTop="@dimen/default_size"
+        android:layout_marginLeft="@dimen/default_size"
+        />
+    <ProgressBar
+        android:id="@+id/test_progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/default_height"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_marginLeft="@dimen/default_size"
+        android:layout_toRightOf="@+id/startTestBtn"
+        android:layout_marginTop="@dimen/default_size"
+        android:layout_marginRight="@dimen/default_size"
+        android:max="100"
+        android:progress="0"
+        android:background="@drawable/img_board_rect"
+        android:indeterminateOnly="false"
+        android:progressDrawable="@drawable/horizontal_progress_bar"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/startTestBtn"
+        >
+        <ScrollView
+            android:id="@+id/testScrollView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/default_size"
+            android:layout_marginLeft="@dimen/default_size"
+            android:layout_marginBottom="@dimen/default_size"
+            style="@style/board_style"
+            android:scrollbarThumbVertical="@color/gray_color"
+            android:scrollbarSize="@dimen/default_size"
+            android:background="@drawable/img_board_rect">
+
+            <TextView
+                android:id="@+id/testTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/black_color"
+                android:textSize="@dimen/btn_font_size"
+                android:freezesText="true"
+
+                />
+
+        </ScrollView>
+
+
+        <FrameLayout
+            android:id="@+id/testFrameLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/img_board_rect"
+            android:layout_marginTop="@dimen/default_size"
+            android:layout_marginRight="@dimen/default_size"
+            android:layout_marginBottom="@dimen/default_size"
+            >
+            <RelativeLayout
+                android:id="@+id/image_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+<!--                android:src="@drawable/success"-->
+                <ImageView
+                    android:id="@+id/test_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                />
+                <TextView
+                    android:id="@+id/image_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_color"
+                    android:textSize="@dimen/btn_font_size"
+                    android:layout_below="@+id/test_image"
+                    android:layout_centerHorizontal="true"
+                />
+            </RelativeLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

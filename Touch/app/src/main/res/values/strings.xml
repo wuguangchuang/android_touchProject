@@ -1,0 +1,166 @@
+<resources>
+    <string name="app_name">Touch</string>
+    <string name="main_title">TouchAssistant</string>
+    <string name="start_upgrade">开始升级</string>
+    <string name="upgrade">升级</string>
+    <string name="upgrade_running">正在升级中</string>
+    <string name="upgrade_successful">升级成功</string>
+    <string name="upgrade_error">升级失败</string>
+    <string name="upgrade_disconnect_device">升级中,请勿断开设备</string>
+    <string name="downloader_fireware_successful">加载固件成功</string>
+    <string name="restart_device_successful">重启设备成功</string>
+    <string name="enter_downloader_mode">进入下载模式</string>
+    <string name="no_touch_device">请插入设备</string>
+    <string name="no_read_string">没有读取到设备信息</string>
+    <string name="no_hidraw">没有找到可用hidraw驱动</string>
+    <string name="no_permission">/dev/hidraw读写失败</string>
+    <string name="no_touch_permission">切换至无触摸模式没有给与权限</string>
+    <string name="no_device">没有连接触摸框设备</string>
+    <string name="cancel_upgrade">取消升级</string>
+    <string name="btn_update_file">选择升级文件</string>
+    <string name="choose_sile_spinner">请选择升级的固件</string>
+    <string name="USB_model">USB坐标模式</string>
+    <string name="mouse_emulation">模拟鼠标</string>
+    <string name="multi_touch">多点触摸</string>
+    <string name="UART_model">UART坐标模式</string>
+    <string name="touch_rollover">触摸框翻转</string>
+    <string name="x_rollover">x轴翻转</string>
+    <string name="y_rollover">y轴翻转</string>
+    <string name="restore_factory">恢复出厂</string>
+    <string name="turn_touch_clockwise">触摸框顺时针旋转</string>
+    <string name="turn_screen_clockwise">屏幕顺时针旋转</string>
+    <string name="MAC_OS">MAC OS</string>
+    <string name="MAC_OS_10.9_following">MAC OS 10.9及以下</string>
+    <string name="MAC_OS_10.9_above">MAC OS 10.10及以上</string>
+    <string name="recalibrate">重新校准</string>
+    <string name="calibrate">校准</string>
+    <string name="calibration">校准</string>
+    <string name="refresh">刷新</string>
+    <string name="setting">设置</string>
+    <string name="save">保存</string>
+    <string name="read">读取</string>
+    <string name="hid_data">隐藏数据</string>
+    <string name="show_data">显示数据</string>
+    <string name="number">编号</string>
+    <string name="target_point_X">目标点 X</string>
+    <string name="target_point_Y">目标点 Y</string>
+    <string name="collect_point_X">采集点 X</string>
+    <string name="collect_point_Y">采集点 Y</string>
+    <string name="start_test">开始测试</string>
+    <string name="test">测试</string>
+    <string name="cancel_test">取消测试</string>
+    <string name="test_finished">测试完成</string>
+    <string name="test_error">测试失败</string>
+    <string name="test_successful">测试成功</string>
+    <string name="test_no_touch">正在测试!请勿触摸!</string>
+    <string name="test_touch">请围绕四边1点画图！</string>
+    <string name="test_running">正在测试中!</string>
+    <string name="get_fireware_info_error">固件信息获取失败</string>
+    <string name="device_infomation">设备信息</string>
+    <string name="device_name">设备名称</string>
+    <string name="fireware_version">固件版本</string>
+    <string name="fireware_checksum">固件校验码</string>
+    <string name="support_touch_number">支持触摸点数</string>
+    <string name="software_information">软件信息</string>
+    <string name="software_name">软件名称</string>
+    <string name="software_version">软件版本</string>
+    <string name="OS_name">操作系统名称</string>
+    <string name="OS_version">操作系统版本</string>
+    <string name="exit">退出</string>
+    <string name="real_time_refresh">实时刷新</string>
+    <string name="init_signal">信号初始化</string>
+    <string name="auto_hid_coord">自动屏蔽坐标</string>
+    <string name="test_mode">测试模式</string>
+
+
+
+    <string-array name="signal_test_name">
+        <item>ADC_X_TB</item>
+        <item>ADC_Y_TB</item>
+        <item>ADC_X_TM</item>
+        <item>ADC_Y_TM</item>
+        <item>ADC_X_TF</item>
+        <item>ADC_Y_TF</item>
+        <item>ORG_X_TB</item>
+        <item>ORG_Y_TB</item>
+        <item>ORG_X_TM</item>
+        <item>ORG_Y_TM</item>
+        <item>ORG_X_TF</item>
+        <item>ORG_Y_TF</item>
+        <item>RAT_X_TB</item>
+        <item>RAT_Y_TB</item>
+        <item>RAT_X_TM</item>
+        <item>RAT_Y_TM</item>
+        <item>RAT_X_TF</item>
+        <item>RAT_Y_TF</item>
+        <item>TAGC_X_TB</item>
+        <item>TAGC_Y_TB</item>
+        <item>TAGC_X_TM</item>
+        <item>TAGC_Y_TM</item>
+        <item>TAGC_X_TF</item>
+        <item>TAGC_Y_TF</item>
+        <item>UNT_X_TB</item>
+        <item>UNT_Y_TB</item>
+        <item>UNT_X_TM</item>
+        <item>UNT_Y_TM</item>
+        <item>UNT_X_TF</item>
+        <item>UNT_Y_TF</item>
+        <item>RVR_X_TB</item>
+        <item>RVR_Y_TB</item>
+        <item>RVR_X_TM</item>
+        <item>RVR_Y_TM</item>
+        <item>RVR_X_TF</item>
+        <item>RVR_Y_TF</item>
+        <item>ADC_X_TB_ALL</item>
+        <item>ADC_Y_TB_ALL</item>
+        <item>ADC_X_TM_ALL</item>
+        <item>ADC_Y_TM_ALL</item>
+        <item>ADC_X_TF_ALL</item>
+        <item>ADC_Y_TF_ALL</item>
+        <item>ORG_X_TB_ALL</item>
+        <item>ORG_Y_TB_ALL</item>
+        <item>ORG_X_TM_ALL</item>
+        <item>ORG_Y_TM_ALL</item>
+        <item>ORG_X_TF_ALL</item>
+        <item>ORG_Y_TF_ALL</item>
+        <item>RAT_X_TB_ALL</item>
+        <item>RAT_Y_TB_ALL</item>
+        <item>RAT_X_TM_ALL</item>
+        <item>RAT_Y_TM_ALL</item>
+        <item>RAT_X_TF_ALL</item>
+        <item>RAT_Y_TF_ALL</item>
+        <item>AGC_X_TB_ALL</item>
+        <item>AGC_Y_TB_ALL</item>
+        <item>AGC_X_TM_ALL</item>
+        <item>AGC_Y_TM_ALL</item>
+        <item>AGC_X_TF_ALL</item>
+        <item>AGC_Y_TF_ALL</item>
+        <item>""</item>
+        <item>""</item>
+        <item>RSTA_X_TM</item>
+        <item>RSTA_Y_TM</item>
+        <item>""</item>
+        <item>""</item>
+        <item>RUNT_X_TB</item>
+        <item>RUNT_Y_TB</item>
+        <item>RUNT_X_TM</item>
+        <item>RUNT_Y_TM</item>
+        <item>RUNT_X_TF</item>
+        <item>RUNT_Y_TF</item>
+        <item>TLED_X</item>
+        <item>TLED_Y</item>
+        <item>RLED_X</item>
+        <item>RLED_Y</item>
+        <item>""</item>
+        <item>""</item>
+        <item>RAGC_X_TB</item>
+        <item>RAGC_Y_TB</item>
+        <item>RAGC_X_TM</item>
+        <item>RAGC_Y_TM</item>
+        <item>RAGC_X_TF</item>
+        <item>RAGC_Y_TF</item>
+    </string-array>
+
+
+
+</resources>

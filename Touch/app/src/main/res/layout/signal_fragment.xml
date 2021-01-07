@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/thirty_five"
+        android:layout_marginTop="@dimen/three"
+        android:layout_weight="0">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/signal_item_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/signal_canvas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/signal_item_recycle"
+        android:layout_marginTop="@dimen/three"
+        android:layout_weight="1"
+        >
+
+    </FrameLayout>
+    <LinearLayout
+        android:id="@+id/bottom_btnS"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/twenty"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/three"
+        android:layout_marginBottom="@dimen/three"
+        android:layout_weight="0">
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="15dp"-->
+<!--            android:layout_marginTop="2dp"-->
+<!--            android:layout_below="@id/signal_canvas"-->
+<!--            >-->
+            <Button
+                android:id="@+id/real_time_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/real_time_refresh"
+                android:textSize="@dimen/def_font_size"
+                android:textColor="@color/white_color"
+                android:background="@color/signal_bottom_true"
+                android:layout_marginLeft="@dimen/ten"
+                />
+<!--        android:layout_toRightOf="@id/real_time_refresh"-->
+            <Button
+                android:id="@+id/init_signal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/init_signal"
+                android:textSize="@dimen/def_font_size"
+                android:textColor="@color/white_color"
+                android:background="@color/normalColor"
+                android:layout_marginLeft="@dimen/three"
+                />
+<!--        android:layout_toRightOf="@id/init_signal"-->
+            <Button
+                android:id="@+id/auto_hid_coord"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/auto_hid_coord"
+                android:textSize="@dimen/def_font_size"
+                android:textColor="@color/white_color"
+                android:background="@color/signal_bottom_false"
+                android:layout_marginLeft="@dimen/three"
+                />
+<!--        android:layout_toRightOf="@id/auto_hid_coord"-->
+            <Button
+                android:id="@+id/test_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/test_mode"
+                android:textSize="@dimen/def_font_size"
+                android:textColor="@color/white_color"
+                android:background="@color/normalColor"
+                android:layout_marginLeft="@dimen/three"
+                />
+<!--        </RelativeLayout>-->
+    </LinearLayout>
+
+</LinearLayout>

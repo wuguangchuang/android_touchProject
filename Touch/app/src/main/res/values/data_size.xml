@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="MCU_ID_LENGTH">16</integer>
+    <integer name="HID_REPORT_DATA_LENGTH">256</integer>
+    <integer name="STM_TLED_ON">0x00000001</integer>
+    <integer name="STM_REPEAT">0x00000002</integer>
+    <integer name="STM_RAW_RANGE">0x01</integer>
+    <integer name="STM_MAX_MIN_DIFF">0x02</integer>
+    <integer name="STM_MEAN">0x03</integer>
+
+</resources>

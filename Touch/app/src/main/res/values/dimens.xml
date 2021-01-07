@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_height">25px</dimen>
+    <dimen name="button_minWidth">100px</dimen>
+    <dimen name="button_minHeight">25px</dimen>
+    <dimen name="btn_font_size">15px</dimen>
+    <dimen name="def_font_size">10px</dimen>
+    <dimen name="default_size">5px</dimen>
+    <dimen name="default_height">30px</dimen>
+    <dimen name="default_width">150px</dimen>
+    <dimen name="setting_textView_size">150px</dimen>
+    <dimen name="setting_checkBox_size">100px</dimen>
+    <dimen name="setting_button_size">100px</dimen>
+    <dimen name="setting_text_size">15px</dimen>
+    <dimen name="default_margin_size">10px</dimen>
+    <dimen name="setting_margin_width">100px</dimen>
+    <dimen name="setting_editText_width">70px</dimen>
+    <dimen name="setting_editText_right_margin">30px</dimen>
+    <dimen name="setting_editText_height">35px</dimen>
+    <dimen name="setting_font_bold_size">30px</dimen>
+    <dimen name="test_image_bottom_margin">30px</dimen>
+    <dimen name="line_height">2px</dimen>
+    <dimen name="two">2px</dimen>
+    <dimen name="three">3px</dimen>
+    <dimen name="twenty_five">25px</dimen>
+    <dimen name="eighty">80px</dimen>
+    <dimen name="thirty_five">35px</dimen>
+    <dimen name="twenty">20px</dimen>
+    <dimen name="ten">10px</dimen>
+    <dimen name="five">5px</dimen>
+    <dimen name="six">6px</dimen>
+    <dimen name="six_hundred">600px</dimen>
+    <dimen name="five_hundred">500px</dimen>
+    <dimen name="one_hundred">100px</dimen>
+    <dimen name="thirty">30px</dimen>
+    <dimen name="fifteen">15px</dimen>
+    <dimen name="four_hundred_and_ten">410px</dimen>
+    <dimen name="sixty">60px</dimen>
+    <dimen name="four_hundred_and_thirty">430px</dimen>
+    <dimen name="forty">40px</dimen>
+    <dimen name="two_hundred_ninety_nine">299px</dimen>
+    <dimen name="one_hundred_fifty">150px</dimen>
+
+</resources>
