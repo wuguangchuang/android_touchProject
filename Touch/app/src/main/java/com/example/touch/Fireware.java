@@ -1,17 +1,18 @@
 package com.example.touch;
 
-import android.text.method.Touch;
+import android.content.res.AssetFileDescriptor;
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.CRC32;
 
 import dataInformation.FirewareFileHeader;
 import dataInformation.FirewareHeader;
@@ -23,21 +24,70 @@ public class Fireware {
     private FirewareFileHeader mFileHeader;
     private byte[] mFileHeaderArray = new byte[18];
     private InputStream inputStream;
+    private AssetFileDescriptor afd;
+    private FileInputStream fileInputStream;
     public List<FirewarePackage> mFirewares = new ArrayList<>();
     final public static String TAG = "mytext";
 
     public Fireware(String path){
 
-        int ret;
-        file = new File(path);
+        int ret = 0;
+        if(!MainActivity.quickUpgradeSwitch)
+        {
+            file = new File(path);
+        }
         byte []fileData;
-        RandomAccessFile randomAccessFile;
-        if(!file.exists())
+        RandomAccessFile randomAccessFile = null;
+
+        if(MainActivity.quickUpgradeSwitch)
+        {
+            InputStream is = null;
+            try {
+                is = MainActivity.assetManager.open(MainActivity.quickUpgradeFileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            file  = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), MainActivity.quickUpgradeFileName);
+            FileOutputStream fos = null;
+            try {
+                fos = new FileOutputStream(file);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            int len = -1;
+            byte[] buffer = new byte[1024];
+            while (true) {
+                try {
+                    if (!((len = is.read(buffer)) != -1)) break;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    fos.write(buffer, 0, len);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        if(!MainActivity.quickUpgradeSwitch && !file.exists())
         {
             Log.d(TAG, String.format("Fireware: %s file is not exists",path));
             return;
         }
-        if(!file.canRead())
+        if(!MainActivity.quickUpgradeSwitch && !file.canRead())
         {
             Log.d(TAG, "Fireware: can not open fireware file:");
             return;
@@ -45,12 +95,13 @@ public class Fireware {
         else {
             try {
                 inputStream = new FileInputStream(file);
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 return;
             }
             try {
-                ret = inputStream.read(mFileHeaderArray);
+                ret = inputStream.read(mFileHeaderArray,0,mFileHeaderArray.length);
             } catch (IOException e) {
                 e.printStackTrace();
                 return;
@@ -59,13 +110,13 @@ public class Fireware {
                 Log.e(TAG, "Fireware: inputStream.read文件读取失败" );
                 return;
             }
+            Log.d(TAG, "Fireware: 111ret = " + ret);
             mFileHeader = new FirewareFileHeader();
             ArrayToFirewareFileHeader(mFileHeaderArray,mFileHeader);
             Log.d(TAG, "Fireware: " + path);
             Log.d(TAG, "Fireware: " + String.format("version: 0x%04x, header size: %d, file size: %d, fireware count: %d",
                     mFileHeader.version, mFileHeader.headerSize, mFileHeader.fileSize, mFileHeader.firewareCount));
 
-            int binSize = mFileHeader.fileSize;
             if(inputStream != null) {
                 try {
                     inputStream.close();
@@ -73,88 +124,78 @@ public class Fireware {
                     e.printStackTrace();
                 }
             }
+
+
+            int binSize = mFileHeader.fileSize;
             fileData = new byte[binSize];
+            int remain = binSize;
+            int readSize = 1024;
+            int index = 0;
+            int offset = 18;
             try {
                 randomAccessFile = new RandomAccessFile(file,"r");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 return;
             }
-            int remain = binSize;
-            int readSize = 1024;
-            int index = 0;
-            int offset = 18;
-//            while(remain > 0)
-//            {
-//                try {
-//                    randomAccessFile.seek(offset);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-
-//                byte[] readdata = new byte[1024];
-//                readSize = readSize > remain?remain:readSize;
-//                try {
-//                    ret = randomAccessFile.read(readdata,0,readSize);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                    Log.d(TAG, "Fireware: " + e.toString());
-//                    return;
-//                }
-//                for (int i = 0;i < ret;i++)
-//                {
-//                    fileData[index + i] = readdata[i];
-//                }
-//                index += ret;
-//                remain -= ret;
-//            }
             try {
-                    randomAccessFile.seek(offset);
+                randomAccessFile.seek(offset);
             } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                e.printStackTrace();
+            }
             try {
                 ret = randomAccessFile.read(fileData);
+                Log.d(TAG, "Fireware: randomAccessFile ret = " + ret);
             } catch (IOException e) {
                 e.printStackTrace();
                 Log.d(TAG, "Fireware: " + e.toString());
                 return;
             }
 
+
             if(ret < 0)
             {
                 Log.d(TAG, "Fireware: 读取固件数据出错");
             }
+
+            Log.d(TAG, "Fireware: 222 ret = " + ret);
             CCRC_32 crc = new CCRC_32();
             crc.Reset();
             crc.Calculate(fileData, binSize);
-
             if ((crc.GetCrcResult() &0xffffffffL) != (mFileHeader.crc32 & 0xffffffffL)) {
                 Log.e(TAG, "Fireware: file crc error");
                 Log.d(TAG, "Fireware: " + String.format("1calculate crc: 0x%x", (crc.GetCrcResult() &0xffffffffL)));
                 Log.d(TAG, "Fireware: " + String.format("1file info crc: 0x%x", mFileHeader.crc32));
                 return;
             }
-
             FirewarePackage fireware;
             byte[] firewareArray;
             FirewareHeader header;
             byte[] headerArray ;
             offset = mFileHeaderArray.length;
+
             try {
                 randomAccessFile.seek(offset);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
+
+            boolean firstRead = true;
             for (int i = 0; i < mFileHeader.firewareCount; i++) {
                 fireware = new FirewarePackage();
                 firewareArray = new byte[64];
                 headerArray = new byte[51];
+
                 try {
                     ret = randomAccessFile.read(headerArray,0,51);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+
+                Log.d(TAG, "Fireware: 333 ret = " + ret);
                 if(ret < 0)
                 {
                     Log.e(TAG, "1Fireware: 读取固件头部出错" );
@@ -169,17 +210,23 @@ public class Fireware {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+
+                Log.d(TAG, "Fireware: 4444 ret = " + ret);
                 if(ret < 0)
                 {
                     Log.e(TAG, "2Fireware: 读取header.verifyCode出错" );
                     return;
                 }
                 byte[] firmwareDataCRC32 = new byte[4];
+
                 try {
                     ret = randomAccessFile.read(firmwareDataCRC32,0,4);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+                Log.d(TAG, "Fireware: 555 ret = " + ret);
                 if(ret < 0)
                 {
                     Log.e(TAG, "3Fireware: 读取header.firmwareDataCRC32出错" );
@@ -201,11 +248,13 @@ public class Fireware {
 //                } catch (IOException e) {
 //                    e.printStackTrace();
 //                }
+
                 try {
                     ret = randomAccessFile.read(fireware.data,0,fireware.data.length);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
                 if(ret < 0)
                 {
                     Log.e(TAG, "4Fireware: 读取固件数据出错" );

@@ -10,4 +10,5 @@ public interface Upgrade_fragment_interface {
     int getUpgradeProgress();
     int getImageType();
     String getImageText();
+    void addUpgradeFilePath(String filePath);
 }

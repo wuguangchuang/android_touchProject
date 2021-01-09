@@ -1289,7 +1289,7 @@ public class TouchManager implements MainActivity.upgrade_interface,MainActivity
             Log.d(TAG, func + "function error: 接收数据 = "+Arrays.toString(buffer2));
             return false;
         }
-        Log.d(TAG, func + " function 命令执行成功...");
+//        Log.d(TAG, func + " function 命令执行成功...");
         return true;
     }
 

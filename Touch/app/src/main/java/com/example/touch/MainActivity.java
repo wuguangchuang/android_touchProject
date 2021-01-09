@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
@@ -68,6 +69,13 @@ public class MainActivity extends AppCompatActivity{
     public static AppType appType = AppType.APP_CLIENT;
 //    public static AppType appType = AppType.APP_RD;
 //    public static AppType appType = AppType.APP_PCBA;
+
+    //用于快速升级的固件名称
+    static public boolean quickUpgradeSwitch = true;
+    static public String quickUpgradeFileName = "G-55WHD-QG-C1-W15.bin";
+    static public AssetManager assetManager;
+
+
 
     public static FragmentManager fragmentManager;
     public static MyCailbrateManager cailbrateManagerContext;
@@ -188,6 +196,7 @@ public class MainActivity extends AppCompatActivity{
     private boolean exitProgram = false;
     int width;
     int  height;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -231,6 +240,15 @@ public class MainActivity extends AppCompatActivity{
             upgradePro = savedInstanceState.getInt("upgradeProgress");
         }
         AutoWorking();
+
+        //assets文件的处理
+        if(quickUpgradeSwitch)
+        {
+            assetManager = getAssets();
+            Log.d(TAG, "onCreate: assetManager finished");
+            TouchManager.path = quickUpgradeFileName;
+        }
+
 
     }
 
@@ -443,6 +461,11 @@ public class MainActivity extends AppCompatActivity{
     //升级部分
     public void setUpgrade_fragment_interface(Upgrade_fragment_interface upgrade_fragment_interface) {
         this.upgrade_fragment_interface = upgrade_fragment_interface;
+        if(quickUpgradeSwitch)
+        {
+
+            this.upgrade_fragment_interface.addUpgradeFilePath(quickUpgradeFileName);
+        }
     }
     public void setUpgradestatus(String btnText,boolean enable) {
         upgrade_fragment_interface.setUpgradeBtnStatus(btnText,enable);

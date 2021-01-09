@@ -12,7 +12,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
@@ -137,9 +136,9 @@ public class CommandThread extends Thread{
                     outputStream = new FileOutputStream(file);
                     inputStream = new FileInputStream(file);
                     try {
-                        Log.d(TAG, "run: 发送命令:" + Arrays.toString(sendByte));
+//                        Log.d(TAG, "run: 发送命令:" + Arrays.toString(sendByte));
                         outputStream.write(sendByte);
-                        Log.d(TAG, "run: 发送命令成功");
+//                        Log.d(TAG, "run: 发送命令成功");
                         writeSuccess = true;
                         break;
                     } catch (IOException e) {
@@ -188,7 +187,7 @@ public class CommandThread extends Thread{
                         break;
                     }
                     readLength = inputStream.read(data);
-                    Log.d(TAG, "run: hidraw读取数据：" + Arrays.toString(data));
+//                    Log.d(TAG, "run: hidraw读取数据：" + Arrays.toString(data));
                     if(byteToInt(data[0]) == 205)
                     {
                         synchronized (CommandThread.class){
@@ -223,7 +222,7 @@ public class CommandThread extends Thread{
                     e.printStackTrace();
                 }
             }
-            Log.d(TAG, "命令读写完成");
+//            Log.d(TAG, "命令读写完成");
             item.sem.release(1);
 
 //            Log.d(TAG, "command: 命令线程执行完毕");
@@ -298,7 +297,7 @@ public class CommandThread extends Thread{
             else
                 reply = null;
         }
-        Log.d(TAG, "addCommandToQueue: 删除队首元素");
+//        Log.d(TAG, "addCommandToQueue: 删除队首元素");
         mCommandItem.remove();
         recvSem.release(1);
         return reply;

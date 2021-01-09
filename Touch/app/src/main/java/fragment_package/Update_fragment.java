@@ -75,6 +75,8 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
         return imageStr;
     }
 
+
+
     public String imageStr = "";
 
 
@@ -419,6 +421,22 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
         }
     }
 
+    @Override
+    public void addUpgradeFilePath(String filePath) {
+        Log.d(TAG, "addUpgradeFilePath: start");
+        if(spinnerData.get(0).equals(" ") || spinnerData.get(0) == null)
+        {
+            spinnerData.remove(0);
+        }
+        spinnerData.add(0,filePath);
 
-
+//        TextView upgrade_file = view.findViewById(R.id.spinnerText);
+//        Log.d(TAG, "222222222222222222");
+//        upgrade_file.setText(spinnerData.get(0));
+//        Log.d(TAG, "333333333333");
+//        TouchManager.path = spinnerData.get(0);
+//        Log.d(TAG, "444444444444444");
+//        saveUpgradeFile();
+//        Log.d(TAG, "55555555555555");
+    }
 }
