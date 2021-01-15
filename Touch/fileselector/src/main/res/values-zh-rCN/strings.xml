@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="category">存储设备</string>
+    <string name="picture">图片</string>
+    <string name="music">音乐</string>
+    <string name="video">视频</string>
+    <string name="doc">本机固件</string>
+    <string name="ncc">白板</string>
+    <string name="current_dir">外部设备</string>
+    <string name="current_device">本地设备</string>
+
+    <string name="inner_storage">内部存储</string>
+    <string name="moveable_storage">移动设备</string>
+    <string name="text_list">列表</string>
+    <string name="text_tile">平铺</string>
+    <string name="confirm">确定</string>
+    <string name="picture_library">图片库</string>
+    <string name="doc_library">文档库 </string>
+    <string name="music_library">音乐库</string>
+    <string name="video_library">视频库</string>
+    <string name="ncc_library">白板库</string>
+    <string name="file_selection">文件选择</string>
+
+</resources>

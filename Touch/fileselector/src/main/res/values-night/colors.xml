@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="transparent">#00000000</color>
+    <color name="text_color">#ffffffff</color>
+    <color name="text_hint_color">#9e9e9e</color>
+    <color name="foreground_color">#fff</color>
+    <color name="colorPrimary">#212121</color>
+    <color name="base_background_color">#212121</color>
+    <color name="dialog_background_color">#424242</color>
+    <color name="text_highlight_color">#000</color>
+    <color name="background_color">#212121</color>
+    <color name="line_color">#616161</color>
+    <color name="text_disable_color">#9e9e9e</color>
+    <color name="highlight_color">#9e9e9e</color>
+    <color name="text_enable_color">@color/app_color</color>
+    <color name="note_book_background">#ff424242</color>
+</resources>

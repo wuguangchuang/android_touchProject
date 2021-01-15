@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_width">560dp</dimen>
+    <dimen name="main_height">460dp</dimen>
+    <dimen name="dialog_width">720dp</dimen>
+    <dimen name="top_height">54dp</dimen>
+    <dimen name="item_height">48dp</dimen>
+    <dimen name="icon_size">18dp</dimen>
+    <dimen name="padding_x1">5dp</dimen>
+    <dimen name="padding_x2">10dp</dimen>
+    <dimen name="padding_x3">15dp</dimen>
+    <dimen name="navigation">160dp</dimen>
+    <dimen name="mobile_menu_height">48dp</dimen>
+    <dimen name="mobile_icon_size">16dp</dimen>
+</resources>

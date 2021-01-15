@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <Button
+            android:id="@+id/button_select_file"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="#e54d42"
+            android:text="文件" />
+
+        <Button
+            android:id="@+id/button_select_picture"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="100dp"
+            android:background="#3a99d9"
+            android:text="图片" />
+
+        <Button
+            android:id="@+id/button_select_music"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:background="#39cb74"
+            android:text="音乐" />
+
+        <Button
+            android:id="@+id/button_select_video"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="50dp"
+            android:background="#e47d31"
+            android:text="视频" />
+
+        <Button
+            android:id="@+id/button_select_doc"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="100dp"
+            android:background="#9a5cb4"
+            android:text="文档" />
+
+        <Button
+            android:id="@+id/button_select_ncc"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="100dp"
+            android:background="#2abbac"
+            android:text="笔迹" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

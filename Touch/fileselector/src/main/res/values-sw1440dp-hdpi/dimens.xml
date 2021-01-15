@@ -1,0 +1,14 @@
+<resources>
+    <dimen name="main_width">800dp</dimen>
+    <dimen name="main_height">560dp</dimen>
+    <dimen name="dialog_width">1040dp</dimen>
+    <dimen name="top_height">86dp</dimen>
+    <dimen name="item_height">72dp</dimen>
+    <dimen name="icon_size">40dp</dimen>
+    <dimen name="padding_x1">10dp</dimen>
+    <dimen name="padding_x2">20dp</dimen>
+    <dimen name="padding_x3">30dp</dimen>
+    <dimen name="navigation">240dp</dimen>
+    <dimen name="mobile_menu_height">64dp</dimen>
+    <dimen name="mobile_icon_size">24dp</dimen>
+</resources>

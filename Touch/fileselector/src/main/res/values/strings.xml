@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">MeetingPad</string>
+    <string name="category">Category</string>
+    <string name="picture">Pitcure</string>
+    <string name="music">Music</string>
+    <string name="video">Video</string>
+    <string name="doc">Documents</string>
+    <string name="ncc">Note</string>
+    <string name="current_dir">Local Device</string>
+    <string name="current_device">Devices</string>
+    <string name="inner_storage">Inner Storage</string>
+    <string name="moveable_storage">USB </string>
+    <string name="text_list">List </string>
+    <string name="text_tile">Tile </string>
+    <string name="confirm">Ok </string>
+    <string name="picture_library">Picture library </string>
+    <string name="doc_library">Doc library </string>
+    <string name="music_library">Music library </string>
+    <string name="video_library">Video library </string>
+    <string name="ncc_library">Ncc library </string>
+    <string name="file_selection">File selection</string>
+</resources>

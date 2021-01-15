@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="background_color">#ffffffff</color>
+    <color name="text_hint_color">#bdbdbd</color>
+    <color name="foreground_color">#212121</color>
+    <color name="base_background_color">#f5f5f5</color>
+    <color name="dialog_background_color">#ffe0e0e0</color>
+    <color name="text_highlight_color">#212121</color>
+    <color name="text_disable_color">#999999</color>
+    <color name="highlight_color">#bdbdbd</color>
+    <color name="line_color">#bdbdbd</color>
+    <color name="text_enable_color">@color/app_color</color>
+
+    <color name="app_color">#ff0091ea</color>
+    <color name="light_app_color">#af0091ea</color>
+    <color name="text_color">#ff222222</color>
+    <!-- file selector -->
+    <color name="pressed_color">@color/app_color</color>
+    <color name="normal_color">@color/text_color</color>
+    <color name="navigation_selector">@color/text_color</color>
+<!--    <color name="navigation_normol">@color/text_color</color>-->
+    <color name="navigation_normol">@color/text_disable_color</color>
+    <color name="text_pressed_color">@color/app_color</color>
+    <color name="note_book_background">#fffafafa</color>
+    <!-- -->
+</resources>

@@ -22,9 +22,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.touch.FileIO;
 import com.example.touch.MainActivity;
-import com.example.touch.MyFileManager;
 import com.example.touch.R;
 import com.example.touch.TouchManager;
+import com.newskyer.meetingpad.fileselector.activity.FileSelectActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +36,7 @@ import fragment_interface.Upgrade_fragment_interface;
 public class Update_fragment extends Fragment implements Upgrade_fragment_interface {
 
     public static final int FILE_RESULT_CODE = 1;
+    public static final int EVENT_TYPE_IMPORT_NZ = 2;
     private final String TAG = "myText";
     private TextView updateTextView;
 
@@ -132,8 +133,12 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
                         setTextViewStr("getActivity() == null");
                     }else
                     {
-                        Intent intent = new Intent(getActivity(), MyFileManager.class);
-                        startActivityForResult(intent, FILE_RESULT_CODE);
+                            Intent intent =new Intent("newskyer.intent.action.MOBILE_SELECT_FILE");
+                            intent.putExtra(FileSelectActivity.SELECT_ITEMS, FileSelectActivity.SELECT_ITEM_DOC);
+                            startActivityForResult(intent, EVENT_TYPE_IMPORT_NZ);
+
+//                        Intent intent = new Intent(getActivity(), MyFileManager.class);
+//                        startActivityForResult(intent, FILE_RESULT_CODE);
                     }
                 }
             });
@@ -164,7 +169,8 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
 
                 }
             });
-            restoreUpgradeFile();
+            if(!MainActivity.quickUpgradeSwitch)
+                restoreUpgradeFile();
         }
 
 
@@ -256,6 +262,45 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
 
     //响应选择文件的操作
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        boolean exist = false;
+        if(EVENT_TYPE_IMPORT_NZ == requestCode)
+        {
+            if(data == null || data.equals(""))
+            {
+                return;
+            }
+            String checkFireware = data.getStringExtra(FileSelectActivity.FILE_PATH);
+            if(checkFireware != null)
+            {
+                if(spinnerData.get(0).equals(" "))
+                {
+                    spinnerData.remove(0);
+                }
+                exist = false;
+                for(int i = 0;i < spinnerData.size();i++)
+                {
+                    if(spinnerData.get(i).equals(checkFireware))
+                    {
+                        exist = true;
+                        Toast.makeText((MainActivity)getActivity(),"选择升级文件已经存在",Toast.LENGTH_SHORT).show();
+                        TextView upgrade_file = view.findViewById(R.id.spinnerText);
+                        upgrade_file.setText(spinnerData.get(i));
+                        TouchManager.path = spinnerData.get(i);
+                        break;
+                    }
+                }
+                if(!exist)
+                {
+                    Log.e(TAG, "onActivityResult: 添加了一个固件");
+                    spinnerData.add(0,checkFireware);
+                    TextView upgrade_file = view.findViewById(R.id.spinnerText);
+                    upgrade_file.setText(spinnerData.get(0));
+                    TouchManager.path = spinnerData.get(0);
+                    saveUpgradeFile();
+                }
+            }
+
+        }
         if(FILE_RESULT_CODE == requestCode){
             Bundle bundle = null;
             if(data!=null&&(bundle=data.getExtras())!=null){
@@ -265,7 +310,7 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
                     spinnerData.remove(0);
                 }
 //                String uri = bundle.getString("file");
-                boolean exist = false;
+                exist = false;
                 for(int i = 0;i < spinnerData.size();i++)
                 {
                     if(spinnerData.get(i).equals(bundle.getString("file")))
@@ -287,6 +332,7 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
 
             }
         }
+
     }
 //    public String uriToFile(String uri)
 //    {

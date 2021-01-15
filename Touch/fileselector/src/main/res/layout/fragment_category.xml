@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:background="@color/navigation_normol"
+        android:id="@+id/view_back_to_parent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_height"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp">
+
+        <ImageView
+            android:id="@+id/image_back_to_parent"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_arrow_fine_left"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/text_file_current_path"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:ellipsize="start"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="@string/current_device"
+            android:textColor="#222"
+            android:textSize="16dp" />
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/categorg_tile_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:descendantFocusability="blocksDescendants">
+
+                <RadioButton
+                    android:id="@+id/categorg_icon_tile"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/tile_bg"
+                    android:button="@null"
+                    android:checked="true"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:id="@+id/categorg_text_tile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:ellipsize="start"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:text="@string/text_tile"
+                    android:textColor="@drawable/text_color_bg"
+                    android:textSize="14dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/categorg_list_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:descendantFocusability="blocksDescendants">
+
+                <RadioButton
+                    android:id="@+id/categorg_icon_list"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/list_bg"
+                    android:button="@null"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:id="@+id/categorg_text_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:ellipsize="start"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:text="@string/text_list"
+                    android:textColor="@drawable/text_color_bg"
+                    android:textSize="14dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eeeeee" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:paddingLeft="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@color/text_disable_color">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/category_path_select_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        >
+
+        <ImageView
+            android:id="@+id/categorg_image_empty"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@mipmap/empty"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            />
+
+        <ListView
+            android:id="@+id/list_file_selector_category"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#eeeeee"
+            android:dividerHeight="1dp"
+            android:visibility="gone" />
+
+        <GridView
+            android:id="@+id/grid_file_selector_category"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/icon_bg"
+            android:columnWidth="140dp"
+            android:divider="#eeeeee"
+            android:horizontalSpacing="10dp"
+            android:numColumns="auto_fit"
+            android:scrollbars="none"
+            android:stretchMode="spacingWidth" />
+    </RelativeLayout>
+
+
+
+</LinearLayout>

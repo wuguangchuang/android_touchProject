@@ -64,14 +64,14 @@ import static fragment_package.Setting_fragment.enterCalibrate;
 
 public class MainActivity extends AppCompatActivity{
 
-    public static String softwareVersion = "v1.2.3";
+    public static String softwareVersion = "v1.2.4";
 //    public static AppType appType = AppType.APP_FACTORY;
     public static AppType appType = AppType.APP_CLIENT;
 //    public static AppType appType = AppType.APP_RD;
 //    public static AppType appType = AppType.APP_PCBA;
 
     //用于快速升级的固件名称
-    static public boolean quickUpgradeSwitch = true;
+    static public boolean quickUpgradeSwitch = false;
     static public String quickUpgradeFileName = "G-55WHD-QG-C1-W15.bin";
     static public AssetManager assetManager;
 
@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity{
         DisplayMetrics metrics = new DisplayMetrics();
         Display display = mWindowManager.getDefaultDisplay();
         display.getRealMetrics(metrics);
-        Log.d(TAG, "像素 onCreate: width = " + metrics.widthPixels + "height = " + metrics.heightPixels);
+//        Log.d(TAG, "像素 onCreate: width = " + metrics.widthPixels + "height = " + metrics.heightPixels);
         MyCalibrateView.width = metrics.widthPixels;
         MyCalibrateView.height = metrics.heightPixels;
 
@@ -1540,58 +1540,6 @@ public class MainActivity extends AppCompatActivity{
             return 0;
         }
 
-        return -1;
-    }
-    public int checkDeviceVPID(){
-        int vid = -1;
-        int pid = -1;
-        Touch_fireware_info fireware_info = touchManager.getFirewareInfo();
-        if(fireware_info == null)
-        {
-            return -1;
-        }
-        else
-        {
-            vid = touchManager.byteToChar(fireware_info.usb_vid_l,fireware_info.usb_vid_h);
-            pid = touchManager.byteToChar(fireware_info.usb_pid_l,fireware_info.usb_pid_h);
-            Log.e(TAG, "checkDeviceVPID: " + String.format("VID = %04X,PID = %04X",vid,pid));
-        }
-        if(vid == 0xAED7 && pid == 0x0013)
-        {
-            return 0;
-        }
-        if(vid == 0x14E1 && pid == 0x3500)
-        {
-            return 0;
-        }
-        if(vid == 0x14E1 && pid == 0x3400)
-        {
-            return 0;
-        }
-        if(vid == 0x14E1 && pid == 0x2500)
-        {
-            return 0;
-        }
-        if(vid == 0x1FF7 && pid == 0x0013)
-        {
-            return 0;
-        }
-        if(vid == 0xAED7 && pid == 0xFEDC)
-        {
-            return 1;
-        }
-        if(vid == 0x24B8 && pid == 0x0040)
-        {
-            return 0;
-        }
-        if(vid == 0x1101 && pid == 0x0010)
-        {
-            return 0;
-        }
-        if(vid == 0x1FF7 && pid == 0x001D)
-        {
-            return 0;
-        }
         return -1;
     }
 

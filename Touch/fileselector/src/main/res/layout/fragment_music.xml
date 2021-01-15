@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:background="@color/navigation_normol"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_height"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/library_type"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:ellipsize="start"
+            android:gravity="center_vertical"
+            android:textColor="@color/pressed_color"
+            android:textSize="16dp"
+            android:text="@string/music_library"/>
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/music_tile_linear"
+                android:descendantFocusability="blocksDescendants"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp">
+
+                <RadioButton
+                    android:id="@+id/music_icon_tile"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:background="@drawable/tile_bg"
+                    android:button="@null"
+                    android:checked="true"
+                    android:clickable="false"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:id="@+id/music_text_tile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:ellipsize="start"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:text="@string/text_tile"
+                    android:textColor="@drawable/text_color_bg"
+                    android:textSize="14dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/music_list_linear"
+                android:descendantFocusability="blocksDescendants"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp">
+
+                <RadioButton
+                    android:id="@+id/music_icon_list"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:background="@drawable/list_bg"
+                    android:button="@null"
+                    android:clickable="false"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:id="@+id/music_text_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:ellipsize="start"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:text="@string/text_list"
+                    android:textColor="@drawable/text_color_bg"
+                    android:textSize="14dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eeeeee" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
+        <ImageView
+            android:id="@+id/music_image_empty"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@mipmap/empty"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            />
+        <ListView
+            android:id="@+id/list_file_selector_music"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:divider="#eeeeee"
+            android:visibility="gone"
+            android:dividerHeight="1dp" />
+        <GridView
+            android:id="@+id/grid_file_selector_music"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#eeeeee"
+            android:horizontalSpacing="10dp"
+            android:numColumns="auto_fit"
+            android:columnWidth="140dp"
+            android:stretchMode="spacingWidth"
+            android:scrollbars="none"
+            />
+    </RelativeLayout>
+
+</LinearLayout>
