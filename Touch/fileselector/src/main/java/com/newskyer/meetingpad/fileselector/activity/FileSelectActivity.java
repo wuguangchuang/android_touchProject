@@ -103,6 +103,7 @@ public class FileSelectActivity extends AppCompatActivity {
     private  List<TabInfo> tabInfoList;
 
     public static boolean readPermission = false;
+    public boolean isExitChooseFile = false;
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -113,9 +114,8 @@ public class FileSelectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
+        readPermission = false;
+        exitChooseFile = false;
         setContentView(R.layout.activity_file_select);
         Resources resources = getResources();
         STRING_CATEGORY = resources.getString(R.string.category);
@@ -290,10 +290,14 @@ public class FileSelectActivity extends AppCompatActivity {
 //            Log.d("2222", "╚════════════════════════════════════════════════");
             switch (intent.getAction()) {
                 case Intent.ACTION_MEDIA_SCANNER_FINISHED:
+                    break;
                 case Intent.ACTION_MEDIA_MOUNTED:
                     // 挂载
+                    break;
                 case Intent.ACTION_MEDIA_REMOVED:
                     // 移除
+
+
 //                    if (intent.getAction().equals(Intent.ACTION_MEDIA_MOUNTED)) {
 //                        Log.d("2222", "╔════════════════════════════════════════════════");
 //                        Log.d("2222", "║    挂载");
@@ -375,7 +379,6 @@ public class FileSelectActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        Log.e(TAG, "onResume: 选择文件的resume");
         readPermission = checkPermissionREAD_EXTERNAL_STORAGE(this);
         super.onResume();
     }
@@ -448,8 +451,7 @@ public class FileSelectActivity extends AppCompatActivity {
                     this.setResult(Activity.RESULT_OK, intent);
                     this.setIntent(intent);
                     this.finish();
-//                    Toast.makeText(Login.this, "GET_ACCOUNTS Denied",
-//                            Toast.LENGTH_SHORT).show();
+
                 }
                 break;
             default:

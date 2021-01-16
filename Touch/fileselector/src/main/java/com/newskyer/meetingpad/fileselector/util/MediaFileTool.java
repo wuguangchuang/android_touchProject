@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.newskyer.meetingpad.fileselector.activity.FileSelectActivity;
 import com.newskyer.meetingpad.fileselector.file.model.FileInfo;
@@ -68,13 +67,15 @@ public class MediaFileTool {
     private StorageManager mStorageManager;
     public List<FileInfo> getMediaFileList() {
 
+        List<FileInfo> fileInfoList = new ArrayList<>();
+        String fileName = null;
+        String filePath = null;
         if(!FileSelectActivity.readPermission)
         {
-            Log.e(TAG, "getMediaFileList: 没有读取的权限");
             while (true)
             {
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -82,11 +83,12 @@ public class MediaFileTool {
                 {
                     break;
                 }
+                if(FileSelectActivity.exitChooseFile)
+                {
+                    return fileInfoList;
+                }
             }
         }
-        List<FileInfo> fileInfoList = new ArrayList<>();
-        String fileName = null;
-        String filePath = null;
         if (mediaType == MEDIA_TYPE_NCC) {
             mStorageManager = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
             StorageVolume[] storageVolumes = StorageManagerUtils.getVolumeList(context);

@@ -1,5 +1,6 @@
 package com.example.touch;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.hardware.usb.UsbDevice;
@@ -26,12 +28,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.newskyer.meetingpad.fileselector.file.model.FileInfo;
+import com.newskyer.meetingpad.fileselector.util.LocalFileUtil;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -64,16 +70,12 @@ import static fragment_package.Setting_fragment.enterCalibrate;
 
 public class MainActivity extends AppCompatActivity{
 
-    public static String softwareVersion = "v1.2.4";
+    public static String softwareVersion = "v1.2.5";
 //    public static AppType appType = AppType.APP_FACTORY;
     public static AppType appType = AppType.APP_CLIENT;
 //    public static AppType appType = AppType.APP_RD;
 //    public static AppType appType = AppType.APP_PCBA;
 
-    //用于快速升级的固件名称
-    static public boolean quickUpgradeSwitch = false;
-    static public String quickUpgradeFileName = "G-55WHD-QG-C1-W15.bin";
-    static public AssetManager assetManager;
 
 
 
@@ -96,6 +98,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private USBReceiver usbReceiver;
+    private UDiskReceiver uDiskReceiver;
 
     private PendingIntent mPermissionIntent;
     private UsbManager usbManager;
@@ -165,6 +168,7 @@ public class MainActivity extends AppCompatActivity{
     String appInfo ;//每个设备连接的信息
 
     //======================================
+    //使用无触摸的模式测试
     public static volatile boolean noTouch = false;
     public static volatile Semaphore noTouch_sem;
     public static volatile int noTouch_sem_value = 0;
@@ -184,6 +188,9 @@ public class MainActivity extends AppCompatActivity{
         cailbrateManagerContext = myCailbrateManager;
         calibrateView = _view;
     }
+
+    //====================================================
+    //暴力升级测试部分
     //自动升级标志位
     private boolean switchAutoUpgrade = false;
     static public boolean autoUpgrade = false;
@@ -192,10 +199,27 @@ public class MainActivity extends AppCompatActivity{
     private boolean switchAutoTest = false;
     static public boolean autoTest = false;
     private AutoTestThread autoTestThread;
+    //========================================================
+    //========================================================
+    //定制功能：
+    //用于快速升级的固件名称:将文件复制到assets目录下面,直接获取到固件信息，直接点击升级即可。
+    static public boolean quickUpgradeSwitch = false;
+    static public String quickUpgradeFileName = "G-55WHD-QG-C1-W15.bin";
+    static public AssetManager assetManager;
+
+    //自动选择升级文件升级:指定U盘下的某一个文件夹，获取该文件夹下面的固件升级
+    //注意：不要允许其他软件打开U盘程序，否则测试软件将读取不到U盘信息。
+    public static boolean firstConnectDev = true;
+    public static boolean autoChooseUpgradeFileSwith = true;
+    private String autoUpgradeDir = "FirmwareBin";
+
+    //========================================================
 
     private boolean exitProgram = false;
     int width;
     int  height;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,7 +227,6 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 //        hideNavKey(this); //隐藏导航栏
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN); //隐藏状态栏
-
 
         WindowManager mWindowManager  = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics metrics = new DisplayMetrics();
@@ -219,7 +242,11 @@ public class MainActivity extends AppCompatActivity{
         noTouch_sem = new Semaphore(0);
         initClass();
         initFragment();
+        //注册广播监听USB设备的插拔
         registerReceiver();
+        //注册广播监听U盘插拔
+        registerListenUDisk();
+
         usbManager = (UsbManager) MainActivity.this.getSystemService(Context.USB_SERVICE);
 //        if(upgrade_fragment_interface != null)
 //            upgrade_fragment_interface.setMainActivity(MainActivity.this);
@@ -251,6 +278,7 @@ public class MainActivity extends AppCompatActivity{
 
 
     }
+
 
     public static void hideNavKey(Context context) {
         if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) {
@@ -429,6 +457,7 @@ public class MainActivity extends AppCompatActivity{
     }
     private void initClass(){
         usbReceiver = new USBReceiver(MainActivity.this);
+        uDiskReceiver = new UDiskReceiver();
         usbDevicesList = new ArrayList<>();
         hidrawFilePath = new ArrayList<>();
         touch_info_list = new ArrayList<Touch_info>();
@@ -509,6 +538,42 @@ public class MainActivity extends AppCompatActivity{
     public void setSignal_fragment_interface(Signal_fragment_interface signal_fragment_interface) {
         this.signal_fragment_interface = signal_fragment_interface;
     }
+    public void registerListenUDisk()
+    {
+        IntentFilter filter = null;
+        filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_MEDIA_MOUNTED);   //接受外媒挂载过滤器
+        filter.addAction(Intent.ACTION_MEDIA_REMOVED);   //接受外媒挂载过滤器
+        filter.addDataScheme("file");
+        registerReceiver(uDiskReceiver, filter,"android.permission.READ_EXTERNAL_STORAGE",null);
+    }
+    public class UDiskReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if(Intent.ACTION_MEDIA_MOUNTED.equals(action))
+            {
+                //u盘挂载
+                Log.d(TAG, "onReceive: u盘挂载");
+                autoChooseUpgradeFileToUpgrade();
+            }
+            else if(Intent.ACTION_MEDIA_REMOVED.equals(action))
+            {
+                //u盘移除
+                Log.d(TAG, "onReceive: u盘移除");
+            }
+        }
+    }
+
+    //注册广播USB设备连接
+    public void registerReceiver(){
+        mPermissionIntent = PendingIntent.getBroadcast(MainActivity.this, 0, new Intent(ACTION_USB_PERMISSION), 0);
+        IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+        filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
+        filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
+        Log.d(TAG, "registerReceiver: 已注册");
+        MainActivity.this.registerReceiver(usbReceiver,filter);
+    }
 
     //USB 接收类
     public class USBReceiver extends BroadcastReceiver {
@@ -527,6 +592,7 @@ public class MainActivity extends AppCompatActivity{
 
             String action = intent.getAction();
             UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+
             if(checkDevice(device) < 0)
             {
                 Log.e(TAG, "onReceive: 插拔的不是触摸框设备");
@@ -540,7 +606,6 @@ public class MainActivity extends AppCompatActivity{
             if (ACTION_USB_PERMISSION.equals(action)) {
                 // 获取权限结果的广播
                     getPermissionResult(intent,device);
-
             }
             else if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
 
@@ -739,15 +804,7 @@ public class MainActivity extends AppCompatActivity{
         return null;
     }
 
-    //注册广播
-    public void registerReceiver(){
-        mPermissionIntent = PendingIntent.getBroadcast(MainActivity.this, 0, new Intent(ACTION_USB_PERMISSION), 0);
-        IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
-        filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
-        filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
-        Log.d(TAG, "registerReceiver: 已注册");
-        MainActivity.this.registerReceiver(usbReceiver,filter);
-    }
+
     public void cancalRegistReceiver(){
         MainActivity.this.unregisterReceiver(usbReceiver);
     }
@@ -818,12 +875,13 @@ public class MainActivity extends AppCompatActivity{
                     {
                         byte[] str = new byte[256];
                         strlen = touchManager.getStringInfo(0x02,str,str.length);
+                        str[strlen] = 0;
                         if(strlen > 0)
                         {
-                            touch_info.model = new String(str);
+                            String tmp = new String(str);
+                            touch_info.model = tmp.substring(0,strlen);
                             appInfo = "TouchApp " + touch_info.model + " 已连接";
                             Toast.makeText(MainActivity.this,touch_info.model+" 已连接",Toast.LENGTH_SHORT).show();
-
                         }
                         else
                         {
@@ -850,6 +908,12 @@ public class MainActivity extends AppCompatActivity{
                             upgrade_fragment_interface.setTextViewStr(appendMessageText(appInfo));
                         else if(test_fragment_interface != null)
                             test_fragment_interface.setTextViewStr(appendMessageText(appInfo));
+
+                        if(!TouchManager.upgradeRunning && firstConnectDev)
+                        {
+                            firstConnectDev = false;
+                            autoChooseUpgradeFileToUpgrade();
+                        }
                     }
                     if(TouchManager.upgradeRunning && touch_info.bootloader == 1)
                     {
@@ -950,7 +1014,8 @@ public class MainActivity extends AppCompatActivity{
                 strlen = touchManager.getStringInfo(0x02,str,str.length);
                 if(strlen > 0)
                 {
-                    touchInfo.model = new String(str);
+                    String tmp = new String(str);
+                    touchInfo.model = tmp.substring(0,strlen);
                     appInfo = "TouchApp " + touchInfo.model + " 已连接";
                     Toast.makeText(MainActivity.this,touchInfo.model+" 已连接",Toast.LENGTH_SHORT).show();
                 }
@@ -983,6 +1048,12 @@ public class MainActivity extends AppCompatActivity{
                 usbCoordStatus = touchManager.getCoordsEnabled((byte)(getResInteger(R.integer.COORDS_CHANNEL_USB)&0xff));
                 uartCoordStatus = touchManager.getCoordsEnabled((byte)(getResInteger(R.integer.COORDS_CHANNEL_SERIAL)&0xff));
                 touchManager.enableCoords(false);
+
+                if(!TouchManager.upgradeRunning && firstConnectDev)
+                {
+                    firstConnectDev = false;
+                    autoChooseUpgradeFileToUpgrade();
+                }
             }
             if(touchInfo != null && touchInfo.bootloader ==0 && touchInfo.mDeviceConnection != null && touchInfo.usbEpIn != null && touchInfo.usbEpOut != null)
             {
@@ -1335,12 +1406,14 @@ public class MainActivity extends AppCompatActivity{
                            touch_info = touch_info_list.get(i);
                            strlen = touchManager.getStringInfo(0x02, str, str.length);
                            if (strlen > 0) {
-                               touch_info_list.get(i).model = new String(str);
+                               String tmp = new String(str);
+                               touch_info_list.get(i).model = tmp.substring(0,strlen);
                                appInfo = "TouchApp " + touch_info_list.get(i).model + " 已连接";
                                Toast.makeText(MainActivity.this,touch_info_list.get(i).model+" 已连接",Toast.LENGTH_SHORT).show();
                                if(touch_info_list.get(i) != null && touch_info_list.get(i).bootloader ==0 && touch_info_list.get(i).mDeviceConnection != null && touch_info_list.get(i).usbEpIn != null && touch_info_list.get(i).usbEpOut != null)
                                {
 //                                   refreshReconnectDevicedata();
+
                                }
                            } else {
                                appInfo = getString(R.string.no_read_string);
@@ -1381,6 +1454,12 @@ public class MainActivity extends AppCompatActivity{
                 upgrade_fragment_interface.setTextViewStr(appendMessageText(appInfo));
             else if(test_fragment_interface != null)
                 test_fragment_interface.setTextViewStr(appendMessageText(appInfo));
+
+            if(!TouchManager.upgradeRunning && firstConnectDev)
+            {
+                firstConnectDev = false;
+                autoChooseUpgradeFileToUpgrade();
+            }
         }
 
         if(noTouch && TouchManager.upgradeRunning)
@@ -1615,6 +1694,156 @@ public class MainActivity extends AppCompatActivity{
                     e.printStackTrace();
                 }
             }
+        }
+    }
+    //===============================================
+    //自动选择升级文件升级功能:插入U盘后读取指定文件夹下面的固件文件，然后提醒用户是否升级
+    private void autoChooseUpgradeFileToUpgrade()
+    {
+        if(!autoChooseUpgradeFileSwith)
+        {
+            return;
+        }
+        Touch_info touch = firstDevice();
+        if(touch == null && touch.connected && touch.bootloader != 0)
+        {
+            Log.d(TAG, "autoChooseUpgradeFileToUpgrade: 没有升级的设备");
+            return;
+        }
+        String curDevName = touch.model;
+        boolean storagePermission = checkPermissionREAD_EXTERNAL_STORAGE(this);
+        if(!storagePermission)
+        {
+            return;
+        }
+        startAutoUpgrade(curDevName);
+
+    }
+
+    public void startAutoUpgrade(String devName)
+    {
+        Log.d(TAG, "startAutoUpgrade: devname  = " + devName);
+        int i = 0;
+        String upgradePath = "";
+        List<FileInfo> fileInfoList = LocalFileUtil.getUSBDevicesL(this);
+        boolean existUpgradeFile = false;
+        Log.d(TAG, "startAutoUpgrade: fileInfoList.size = " + fileInfoList.size());
+        for(i = 0;i < fileInfoList.size();i++)
+        {
+            upgradePath = fileInfoList.get(i).getFilePath();
+            File file = new File(upgradePath);		//获取其file对象
+            File[] fs = file.listFiles();	//遍历path下的文件和目录，放在File数组中
+            for(File f:fs){					//遍历File[]数组
+                Log.d(TAG, "startAutoUpgrade: f = " + f.getName());
+                if(f.isFile() && f.canRead() && f.getName().equals(devName+".bin"))
+                {
+                    Log.d(TAG, "startAutoUpgrade: 找到升级的文件");
+                    existUpgradeFile = true;
+                    break;
+                }
+            }
+
+        }
+
+        if(!existUpgradeFile)
+        {
+            Log.d(TAG, "startAutoUpgrade: 没有找到升级的文件");
+            return;
+        }
+        upgradePath += "/" + devName + ".bin";
+//        if(upgrade_fragment_interface != null)
+//        {
+//            upgrade_fragment_interface.addUpgradeFilePath(upgradePath);
+//        }
+
+        showDialog(this,upgradePath);
+    }
+
+    public void showDialog(final Context context,String upgradeFile) {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+        //点击空白处是否消失
+        alertBuilder.setCancelable(false);
+        alertBuilder.setTitle("");
+        alertBuilder.setMessage(getResources().getString(R.string.autoUpgradeTipMessage) + "\n" + upgradeFile);
+        alertBuilder.setPositiveButton(android.R.string.yes,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        TouchManager.path = upgradeFile;
+                        upgrade_interface.startUpgrade();
+                        upgrade_fragment_interface.addUpgradeFilePath(upgradeFile);
+                        upgrade_fragment_interface.setUpgradeBtnStatus(getResources().getString(R.string.cancel_upgrade),false);
+                    }
+                });
+        alertBuilder.setNegativeButton (android.R.string.cancel,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        AlertDialog alert = alertBuilder.create();
+        alert.show();
+    }
+
+
+
+    //检查API级别23及更高级别的手动权限
+    public final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 10;
+    public boolean checkPermissionREAD_EXTERNAL_STORAGE(
+            final Context context) {
+        int currentAPIVersion = Build.VERSION.SDK_INT;
+        if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(context,
+                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(
+                        (Activity) context,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    ActivityCompat.requestPermissions((Activity) context,
+                            new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+                            MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                } else {
+                    ActivityCompat
+                            .requestPermissions(
+                                    (Activity) context,
+                                    new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+                                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                }
+                return false;
+            } else {
+                return true;
+            }
+
+        } else {
+            return true;
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults)
+    {
+        if(requestCode == MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE)
+        {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                //允许访问
+                if(autoChooseUpgradeFileSwith)
+                {
+                    Touch_info touch = firstDevice();
+                    if(touch == null && touch.connected && touch.bootloader != 0)
+                    {
+                        Log.d(TAG, "autoChooseUpgradeFileToUpgrade: 没有升级的设备");
+                        return;
+                    }
+                    String curDevName = touch.model;
+                    startAutoUpgrade(curDevName);
+                }
+
+            }
+            else
+            {
+                //拒绝访问
+
+            }
+
         }
     }
 

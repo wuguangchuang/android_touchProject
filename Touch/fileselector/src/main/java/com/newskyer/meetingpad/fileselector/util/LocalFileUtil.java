@@ -590,15 +590,15 @@ public class LocalFileUtil {
             Object[] params = {};
             List invokeList = (List) getVolumes.invoke(storageManager, params);
 
-            Log.d("2222", "╔════════════════════════════════════════════════");
-            Log.d("2222", "║  getUSBDevices(), Thread : " + Thread.currentThread().getName());
-            Log.d("2222", "║    getVolumes : " + invokeList);
-            Log.d("2222", "╚════════════════════════════════════════════════");
+            Log.d(TAG, "╔════════════════════════════════════════════════");
+            Log.d(TAG, "║  getUSBDevices(), Thread : " + Thread.currentThread().getName());
+            Log.d(TAG, "║    getVolumes : " + invokeList);
+            Log.d(TAG, "╚════════════════════════════════════════════════");
             if (invokeList != null) {
-                Log.d("2222", "╔════════════════════════════════════════════════");
-                Log.d("2222", "║  getUSBDevices(), Thread : " + Thread.currentThread().getName());
-                Log.d("2222", "║    length=" + invokeList.size());
-                Log.d("2222", "╚════════════════════════════════════════════════");
+                Log.d(TAG, "╔════════════════════════════════════════════════");
+                Log.d(TAG, "║  getUSBDevices(), Thread : " + Thread.currentThread().getName());
+                Log.d(TAG, "║    length=" + invokeList.size());
+                Log.d(TAG, "╚════════════════════════════════════════════════");
                 for (int i = 0; i < invokeList.size(); i++) {
                     Object obj = invokeList.get(i);
                     // type
@@ -611,10 +611,10 @@ public class LocalFileUtil {
                         FileInfo fileInfo = new FileInfo();
                         fileInfo.setFileType(FileInfo.FILE_TYPE_U_DISK);
                         fileInfo.setFilePath(path.getAbsolutePath());
-                        Log.d("2222", "╔════════════════════════════════════════════════");
-                        Log.d("2222", "║  getUSBDevices(), Thread : " + Thread.currentThread().getName());
-                        Log.d("2222", "║    path=" + fileInfo.getFilePath());
-                        Log.d("2222", "╚════════════════════════════════════════════════");
+                        Log.d(TAG, "╔════════════════════════════════════════════════");
+                        Log.d(TAG, "║  getUSBDevices(), Thread : " + Thread.currentThread().getName());
+                        Log.d(TAG, "║    path=" + fileInfo.getFilePath());
+                        Log.d(TAG, "╚════════════════════════════════════════════════");
 //                        fileInfo.setFileName("移动设备" + (i + 1));
                         fileInfo.setFileName(path.getAbsolutePath());
                         fileInfoList.add(fileInfo);
@@ -630,7 +630,7 @@ public class LocalFileUtil {
         return fileInfoList;
     }
 
-
+    public static final String TAG = "myFileTect";
     public static List<FileInfo> getUSBDevicesL(Context context) {
         List<FileInfo> fileInfoList = new ArrayList<>();
         StorageManager storageManager = (StorageManager) context
@@ -656,12 +656,12 @@ public class LocalFileUtil {
                         Method getPath = obj.getClass().getMethod("getPath", new Class[0]);
                         String path = (String) getPath.invoke(obj, new Object[0]);
 
-                        Log.d("2222", "╔════════════════════════════════════════════════");
-                        Log.d("2222", "║  getUSBDevicesL(), Thread : " + Thread.currentThread().getName());
-                        Log.d("2222", "║    path : " + path);
-                        Log.d("2222", "║    isPrimary : " + isPrimary);
-                        Log.d("2222", "║    removable : " + removable);
-                        Log.d("2222", "╚════════════════════════════════════════════════");
+                        Log.d(TAG, "╔════════════════════════════════════════════════");
+                        Log.d(TAG, "║  getUSBDevicesL(), Thread : " + Thread.currentThread().getName());
+                        Log.d(TAG, "║    path : " + path);
+                        Log.d(TAG, "║    isPrimary : " + isPrimary);
+                        Log.d(TAG, "║    removable : " + removable);
+                        Log.d(TAG, "╚════════════════════════════════════════════════");
 
                         FileInfo fileInfo = new FileInfo();
                         fileInfo.setFileName(path);
@@ -690,6 +690,7 @@ public class LocalFileUtil {
 //        fileInfo.setFilePath("/mnt/sdcard/假U盘");
 //        fileInfo.setFileType(FileInfo.FILE_TYPE_U_DISK);
 //        fileInfoList.add(fileInfo);
+
         return fileInfoList;
     }
 

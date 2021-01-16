@@ -45,19 +45,6 @@ public class MyFileManager extends ListActivity {
         mPath = (TextView) findViewById(R.id.mPath);
         file_scrollbar = findViewById(R.id.file_scrollbar);
         rootPath = getInnerSDCardPath();
-        List<String> pathList = getExtSDCardPath();
-        Log.e(TAG, "showFileInfo: 外置SD设备个数" + pathList.size());
-        for(int i = 0;i < pathList.size();i++)
-        {
-            Log.e(TAG, "外置USB路径: " + pathList.get(i));
-        }
-        List<String> uDiskList = getUDiskPath();
-        Log.e(TAG, "showFileInfo: 外置U盘个数" + uDiskList.size());
-        for(int i = 0;i < uDiskList.size();i++)
-        {
-            Log.e(TAG, "外置U盘路径: " + uDiskList.get(i));
-        }
-
 
         curPath = rootPath;
 //        List<String> extSDCardPath = getExtSDCardPath();
@@ -122,21 +109,6 @@ public class MyFileManager extends ListActivity {
         } catch (Exception e) {
         }
         return lResult;
-    }
-    //获取u盘路径
-    public List<String> getUDiskPath() {
-        List<String> uDisk = new ArrayList<String>();
-        File storage = new File("/storage");
-        File[] files = storage.listFiles();
-        for (final File file : files) {
-            if (file.canRead()) {
-                if (!file.getName().equals(Environment.getExternalStorageDirectory().getName())) {
-                    //满足该条件的文件夹就是u盘在手机上的目录
-                    uDisk.add(file.getName());
-                }
-            }
-        }
-        return uDisk;
     }
     //获取SD卡读写权限
     public void checkPermission() {

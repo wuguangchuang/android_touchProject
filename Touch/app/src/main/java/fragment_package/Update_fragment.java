@@ -170,7 +170,11 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
                 }
             });
             if(!MainActivity.quickUpgradeSwitch)
+            {
+                //非定制版升级固件时，获取曾经保存在本地保存的升级文件
                 restoreUpgradeFile();
+            }
+
         }
 
 
@@ -476,9 +480,9 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
         }
         spinnerData.add(0,filePath);
 
-//        TextView upgrade_file = view.findViewById(R.id.spinnerText);
+        TextView upgrade_file = view.findViewById(R.id.spinnerText);
 //        Log.d(TAG, "222222222222222222");
-//        upgrade_file.setText(spinnerData.get(0));
+        upgrade_file.setText(spinnerData.get(0));
 //        Log.d(TAG, "333333333333");
 //        TouchManager.path = spinnerData.get(0);
 //        Log.d(TAG, "444444444444444");
