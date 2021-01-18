@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/dialog_width"
     android:layout_height="@dimen/main_height"
     android:background="@drawable/dialog_bg"
-    android:orientation="horizontal">
+    >
 
     <LinearLayout
+        android:id="@+id/leftFileChoose"
         android:background="@color/navigation_normol"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/dialog_height"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
         android:orientation="vertical">
 
         <LinearLayout
@@ -35,6 +38,7 @@
             android:background="@color/navigation_normol"
             android:orientation="vertical">
 
+
             <ListView
                 android:id="@+id/navigation_list"
                 android:layout_width="match_parent"
@@ -44,21 +48,53 @@
                 android:scrollbars="none">
 
             </ListView>
+
         </LinearLayout>
     </LinearLayout>
 
     <View
+        android:id="@+id/fileLine"
         android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_toRightOf="@+id/daohang"
+        android:layout_height="@dimen/dialog_height"
+        android:layout_toRightOf="@+id/leftFileChoose"
         android:background="#eeeeee" />
 
     <FrameLayout
         android:id="@+id/layout_file_content"
+        android:layout_toRightOf="@+id/fileLine"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_toRightOf="@+id/daohang"
-
+        android:layout_height="@dimen/dialog_height"
         />
+    <View
+        android:id="@+id/belowLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/layout_file_content"
+        android:background="#eeeeee" />
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tipMessage_height"
+        android:layout_below="@+id/belowLine"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:id="@+id/image_tipMessage"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/advertise"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="如果没有检测到U盘，请将打开U盘的软件关闭或者重新插拔U盘再重新进入选择固件！"
+            android:textColor="@color/text_color"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

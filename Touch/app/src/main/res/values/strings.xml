@@ -75,6 +75,7 @@
 
 
 
+
     <string-array name="signal_test_name">
         <item>ADC_X_TB</item>
         <item>ADC_Y_TB</item>

@@ -79,7 +79,7 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
 
 
     public String imageStr = "";
-
+    public boolean firstRestoreUpgradeFile = true;
 
     @Nullable
     @Override
@@ -151,15 +151,26 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
                         spinnerData.clear();
                         spinnerData.add(0,"清空历史");
                         spinnerData.add(0," ");
-                        TextView upgrade_file = view.findViewById(R.id.spinnerText);
-                        upgrade_file.setText(spinnerData.get(0));
+//                        TextView upgrade_file = view.findViewById(R.id.spinnerText);
+//                        upgrade_file.setText(spinnerData.get(0));
+                        spinnerAdapter.notifyDataSetChanged(); // 通知spinner刷新数据
+                        spinner.setSelection(0);
                         TouchManager.path = " ";
+                        saveUpgradeFile();
+
                     }
                     else
                     {
                         //                Log.d(TAG, "onItemSelected: 你选择了"+spinner.getItemAtPosition(i));
 //                Log.d(TAG, "onItemSelected: 你选择了"+spinnerData.get(i));
-                        TouchManager.path = spinnerData.get(i);
+                        //删除下拉框中的对应的，然后在添加在首条,
+                        String tmp = spinnerData.get(i);
+                        spinnerData.remove(i);
+                        spinnerData.add(0,tmp);
+                        TouchManager.path = spinnerData.get(0);
+                        spinnerAdapter.notifyDataSetChanged(); // 通知spinner刷新数据
+                        spinner.setSelection(0);
+                        saveUpgradeFile();
                     }
 
                 }
@@ -187,7 +198,7 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
         updateScrollView = view.findViewById(R.id.updateScrollView);
         updateTextView = view.findViewById(R.id.updateTextView);
         spinner = view.findViewById(R.id.updateSpinner);
-        spinnerText = view.findViewById(R.id.spinnerText);
+        spinnerText = (TextView) view.findViewById(R.id.spinnerText);
         upgradeProgressBar = view.findViewById(R.id.upProgressBar);
         imageView = view.findViewById(R.id.upgrade_image);
         imagetext = view.findViewById(R.id.upgrade_image_text);
@@ -198,6 +209,7 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
         if(getContext()!=null)
         {
             Log.d(TAG, "initUpgradeControls:给spinner绑定了适配器");
+//            spinnerAdapter = new ArrayAdapter<String>(getContext(),R.layout.spinner_text_view,R.id.spinnerText,spinnerData);
             spinnerAdapter = new ArrayAdapter<String>(getContext(),R.layout.spinner_text_view,R.id.spinnerText,spinnerData);
             spinner.setAdapter(spinnerAdapter);
         }
@@ -287,9 +299,15 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
                     {
                         exist = true;
                         Toast.makeText((MainActivity)getActivity(),"选择升级文件已经存在",Toast.LENGTH_SHORT).show();
-                        TextView upgrade_file = view.findViewById(R.id.spinnerText);
-                        upgrade_file.setText(spinnerData.get(i));
+                        //删除下拉框中的对应的，然后在添加在首条
+                        spinnerData.remove(i);
+                        spinnerData.add(0,checkFireware);
+//                        TextView upgrade_file =  view.findViewById(R.id.spinnerText);
+//                        upgrade_file.setText(spinnerData.get(i));
+                        spinnerAdapter.notifyDataSetChanged(); // 通知spinner刷新数据
+                        spinner.setSelection(0);
                         TouchManager.path = spinnerData.get(i);
+                        saveUpgradeFile();
                         break;
                     }
                 }
@@ -297,8 +315,10 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
                 {
                     Log.e(TAG, "onActivityResult: 添加了一个固件");
                     spinnerData.add(0,checkFireware);
-                    TextView upgrade_file = view.findViewById(R.id.spinnerText);
-                    upgrade_file.setText(spinnerData.get(0));
+//                    TextView upgrade_file = view.findViewById(R.id.spinnerText);
+//                    upgrade_file.setText(spinnerData.get(0));
+                    spinnerAdapter.notifyDataSetChanged(); // 通知spinner刷新数据
+                    spinner.setSelection(0);
                     TouchManager.path = spinnerData.get(0);
                     saveUpgradeFile();
                 }
@@ -321,6 +341,15 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
                     {
                         exist = true;
                         Toast.makeText((MainActivity)getActivity(),"选择升级文件已经存在",Toast.LENGTH_SHORT).show();
+                        //删除下拉框中的对应的，然后在添加在首条
+                        spinnerData.remove(i);
+                        spinnerData.add(0,bundle.getString("file"));
+//                        TextView upgrade_file =  view.findViewById(R.id.spinnerText);
+//                        upgrade_file.setText(spinnerData.get(i));
+                        spinnerAdapter.notifyDataSetChanged(); // 通知spinner刷新数据
+                        spinner.setSelection(0);
+                        TouchManager.path = spinnerData.get(i);
+                        saveUpgradeFile();
                         break;
                     }
                 }
@@ -328,8 +357,10 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
                 {
                     Log.e(TAG, "onActivityResult: 添加了一个固件");
                     spinnerData.add(0,bundle.getString("file"));
-                    TextView upgrade_file = view.findViewById(R.id.spinnerText);
-                    upgrade_file.setText(spinnerData.get(0));
+//                    TextView upgrade_file = view.findViewById(R.id.spinnerText);
+//                    upgrade_file.setText(spinnerData.get(0));
+                    spinnerAdapter.notifyDataSetChanged(); // 通知spinner刷新数据
+                    spinner.setSelection(0);
                     TouchManager.path = spinnerData.get(0);
                     saveUpgradeFile();
                 }
@@ -451,23 +482,37 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
         }
     }
     public void restoreUpgradeFile(){
-        //获取内置SD目录路径
+
+        if(!MainActivity.storagePermission)
+        {
+            return;
+        }
+        //获取内置存储目录路径
         String SDPath = FileIO.getInterSDPath();
         String readFilePath = SDPath + "/TouchAssistant/upgrade";
         List<String> filePathList = FileIO.readInfoFromFile(readFilePath);
+//        Log.d(TAG, "restoreUpgradeFile: 恢复数据的文件个数：" + filePathList.size());
         if(filePathList == null)
             return;
+        if(!firstRestoreUpgradeFile)
+        {
+            return;
+        }
+        firstRestoreUpgradeFile = false;
         if(spinnerData.get(0).equals(" ") || spinnerData.get(0) == null)
         {
             spinnerData.remove(0);
         }
+
         for(int i = 0;i < filePathList.size()-1;i++)
         {
             if(filePathList.get(i) == null || filePathList.get(i).equals(" ") || filePathList.get(i).isEmpty())
                 continue;
-            Log.e(TAG, "restoreUpgradeFile: " + filePathList.get(i));
-            spinnerData.add(0,filePathList.get(i));
+//            Log.e(TAG, "restoreUpgradeFile: " + filePathList.get(i));
+            spinnerData.add(i,filePathList.get(i));
             TouchManager.path = spinnerData.get(0);
+            spinnerAdapter.notifyDataSetChanged(); // 通知spinner刷新数据
+            spinner.setSelection(0);
         }
     }
 
@@ -479,14 +524,7 @@ public class Update_fragment extends Fragment implements Upgrade_fragment_interf
             spinnerData.remove(0);
         }
         spinnerData.add(0,filePath);
-
-        TextView upgrade_file = view.findViewById(R.id.spinnerText);
-//        Log.d(TAG, "222222222222222222");
-        upgrade_file.setText(spinnerData.get(0));
-//        Log.d(TAG, "333333333333");
-//        TouchManager.path = spinnerData.get(0);
-//        Log.d(TAG, "444444444444444");
-//        saveUpgradeFile();
-//        Log.d(TAG, "55555555555555");
+        spinnerAdapter.notifyDataSetChanged(); // 通知spinner刷新数据
+        spinner.setSelection(0);
     }
 }

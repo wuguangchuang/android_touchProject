@@ -1,7 +1,12 @@
 <resources>
     <dimen name="main_width">800dp</dimen>
-    <dimen name="main_height">560dp</dimen>
+<!--    <dimen name="main_height">560dp</dimen>-->
+    <dimen name="main_height">585dp</dimen>
+    <dimen name="dialog_height">560dp</dimen>
     <dimen name="dialog_width">1040dp</dimen>
+    <dimen name="tipMessage_height">25dp</dimen>
+    <dimen name="tipMessageImage">20dp</dimen>
+    <dimen name="line_length">1dp</dimen>
     <dimen name="top_height">86dp</dimen>
     <dimen name="item_height">72dp</dimen>
     <dimen name="icon_size">40dp</dimen>

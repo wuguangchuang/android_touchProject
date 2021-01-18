@@ -20,5 +20,6 @@
     <string name="video_library">视频库</string>
     <string name="ncc_library">白板库</string>
     <string name="file_selection">文件选择</string>
+    <string name="usb_tip_message">如果未检测到U盘，请将外部打开U盘的软件关闭或者重新插拔U盘在重新点击选择升级文件进入！</string>
 
 </resources>

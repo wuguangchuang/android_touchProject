@@ -121,6 +121,8 @@
         </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -157,8 +159,25 @@
             android:numColumns="auto_fit"
             android:scrollbars="none"
             android:stretchMode="spacingWidth" />
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="30px"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:text="请重新插拔USB设备"-->
+<!--            android:textColor="#ffff00"/>-->
     </RelativeLayout>
 
+<!--    <RelativeLayout-->
+<!--        android:layout_height="30dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        >-->
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:text="请重新插拔USB设备"-->
+<!--            android:textColor="#ffff00"/>-->
 
+<!--    </RelativeLayout>-->
 
 </LinearLayout>

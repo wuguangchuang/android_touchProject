@@ -70,7 +70,7 @@ import static fragment_package.Setting_fragment.enterCalibrate;
 
 public class MainActivity extends AppCompatActivity{
 
-    public static String softwareVersion = "v1.2.5";
+    public static String softwareVersion = "v1.2.6";
 //    public static AppType appType = AppType.APP_FACTORY;
     public static AppType appType = AppType.APP_CLIENT;
 //    public static AppType appType = AppType.APP_RD;
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity{
     public USBReceiver getUsbReceiver() {
         return usbReceiver;
     }
-
+    public static boolean storagePermission = false;
     private USBReceiver usbReceiver;
     private UDiskReceiver uDiskReceiver;
 
@@ -207,11 +207,12 @@ public class MainActivity extends AppCompatActivity{
     static public String quickUpgradeFileName = "G-55WHD-QG-C1-W15.bin";
     static public AssetManager assetManager;
 
+
     //自动选择升级文件升级:指定U盘下的某一个文件夹，获取该文件夹下面的固件升级
     //注意：不要允许其他软件打开U盘程序，否则测试软件将读取不到U盘信息。
     public static boolean firstConnectDev = true;
     public static boolean autoChooseUpgradeFileSwith = true;
-    private String autoUpgradeDir = "FirmwareBin";
+    static public boolean firstUpgrade = true;
 
     //========================================================
 
@@ -228,6 +229,7 @@ public class MainActivity extends AppCompatActivity{
 //        hideNavKey(this); //隐藏导航栏
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN); //隐藏状态栏
 
+         storagePermission = checkPermissionREAD_EXTERNAL_STORAGE(this);
         WindowManager mWindowManager  = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics metrics = new DisplayMetrics();
         Display display = mWindowManager.getDefaultDisplay();
@@ -542,9 +544,11 @@ public class MainActivity extends AppCompatActivity{
     {
         IntentFilter filter = null;
         filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_MEDIA_MOUNTED);   //接受外媒挂载过滤器
-        filter.addAction(Intent.ACTION_MEDIA_REMOVED);   //接受外媒挂载过滤器
-        filter.addDataScheme("file");
+        filter.addAction(Intent.ACTION_MEDIA_MOUNTED);  //表明sd对象是存在并具有读/写权限
+        filter.addAction(Intent.ACTION_MEDIA_REMOVED);   //完全拔出
+        filter.addAction(Intent.ACTION_MEDIA_UNMOUNTED);//SDCard已卸掉,如果SDCard是存在但没有被安装
+        filter.addAction(Intent.ACTION_MEDIA_EJECT);    //物理的拔出 SDCARD
+        filter.addDataScheme("file");                   // 必须要有此行，否则无法收到广播
         registerReceiver(uDiskReceiver, filter,"android.permission.READ_EXTERNAL_STORAGE",null);
     }
     public class UDiskReceiver extends BroadcastReceiver{
@@ -557,7 +561,7 @@ public class MainActivity extends AppCompatActivity{
                 Log.d(TAG, "onReceive: u盘挂载");
                 autoChooseUpgradeFileToUpgrade();
             }
-            else if(Intent.ACTION_MEDIA_REMOVED.equals(action))
+            else if(Intent.ACTION_MEDIA_REMOVED.equals(action) || Intent.ACTION_MEDIA_UNMOUNTED.equals(action) || Intent.ACTION_MEDIA_EJECT.equals(action))
             {
                 //u盘移除
                 Log.d(TAG, "onReceive: u盘移除");
@@ -1249,7 +1253,7 @@ public class MainActivity extends AppCompatActivity{
                         }
                     }
                     int ret = HidrawManager.openHidraw(f.getAbsolutePath());
-                    Log.d(TAG, "findHidraw: ret = " + ret);
+//                    Log.d(TAG, "findHidraw: ret = " + ret);
                     if(ret >= 0)
                     {
                         return f.getAbsolutePath();
@@ -1705,13 +1709,13 @@ public class MainActivity extends AppCompatActivity{
             return;
         }
         Touch_info touch = firstDevice();
-        if(touch == null && touch.connected && touch.bootloader != 0)
+        if(touch == null || !touch.connected || touch.bootloader != 0)
         {
             Log.d(TAG, "autoChooseUpgradeFileToUpgrade: 没有升级的设备");
             return;
         }
         String curDevName = touch.model;
-        boolean storagePermission = checkPermissionREAD_EXTERNAL_STORAGE(this);
+
         if(!storagePermission)
         {
             return;
@@ -1726,13 +1730,16 @@ public class MainActivity extends AppCompatActivity{
         int i = 0;
         String upgradePath = "";
         List<FileInfo> fileInfoList = LocalFileUtil.getUSBDevicesL(this);
+
         boolean existUpgradeFile = false;
         Log.d(TAG, "startAutoUpgrade: fileInfoList.size = " + fileInfoList.size());
         for(i = 0;i < fileInfoList.size();i++)
         {
+            //遍历U盘数据
             upgradePath = fileInfoList.get(i).getFilePath();
             File file = new File(upgradePath);		//获取其file对象
             File[] fs = file.listFiles();	//遍历path下的文件和目录，放在File数组中
+            Log.d(TAG, "startAutoUpgrade: U盘下面文件的个数 = " + fs.length);
             for(File f:fs){					//遍历File[]数组
                 Log.d(TAG, "startAutoUpgrade: f = " + f.getName());
                 if(f.isFile() && f.canRead() && f.getName().equals(devName+".bin"))
@@ -1751,11 +1758,6 @@ public class MainActivity extends AppCompatActivity{
             return;
         }
         upgradePath += "/" + devName + ".bin";
-//        if(upgrade_fragment_interface != null)
-//        {
-//            upgrade_fragment_interface.addUpgradeFilePath(upgradePath);
-//        }
-
         showDialog(this,upgradePath);
     }
 
@@ -1781,7 +1783,11 @@ public class MainActivity extends AppCompatActivity{
                     }
                 });
         AlertDialog alert = alertBuilder.create();
-        alert.show();
+        if(context != null)
+        {
+            alert.show();
+        }
+
     }
 
 
@@ -1824,8 +1830,16 @@ public class MainActivity extends AppCompatActivity{
         {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
+                storagePermission = true;
                 //允许访问
-                if(autoChooseUpgradeFileSwith)
+                //查看之前是否有保存到本地文件的固件信息，恢复到升级界面的下拉框中
+                if(upgrade_fragment_interface != null)
+                {
+                    Log.d(TAG, "onRequestPermissionsResult: 恢复本地的固件信息");
+                    upgrade_fragment_interface.restoreUpgradeFile();
+                }
+                //检测U盘中是否有升级的文件去升级
+                if(autoChooseUpgradeFileSwith && firstUpgrade)
                 {
                     Touch_info touch = firstDevice();
                     if(touch == null && touch.connected && touch.bootloader != 0)

@@ -98,6 +98,7 @@ public class TouchManager implements MainActivity.upgrade_interface,MainActivity
     //升级部分
     @Override
     public void startUpgrade() {
+        MainActivity.firstUpgrade = false;
         mainActivity.setTestInProgress(0);
         upgradeRunning = true;
         upgradeThread = new UpgradeThread();
@@ -1064,7 +1065,7 @@ public class TouchManager implements MainActivity.upgrade_interface,MainActivity
         if (myTouchDevice == null) {
             return null;
         }
-        Log.d(TAG, "getFirewareInfo: 获取固件信息");
+//        Log.d(TAG, "getFirewareInfo: 获取固件信息");
         Touch_package require = new Touch_package();
         require.master_cmd = (byte)(getResInteger(R.integer.TOUCH_M_CMD_DEVICE_INFO) & 0xff);
         require.sub_cmd = (byte)(getResInteger(R.integer.TOUCH_S_CMD_GET_FIRMWARE_INFO) & 0xff);

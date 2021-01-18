@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="main_width">800px</dimen>
-    <dimen name="main_height">560px</dimen>
+<!--    <dimen name="main_height">560px</dimen>-->
+    <dimen name="main_height">585px</dimen>
+    <dimen name="dialog_height">560px</dimen>
     <dimen name="dialog_width">1040px</dimen>
+    <dimen name="tipMessage_height">25px</dimen>
+    <dimen name="tipMessageImage">20px</dimen>
+    <dimen name="line_length">1px</dimen>
     <dimen name="top_height">86px</dimen>
     <dimen name="item_height">72px</dimen>
     <dimen name="icon_size">40px</dimen>

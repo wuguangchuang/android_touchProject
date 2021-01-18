@@ -19,5 +19,6 @@
     <string name="video_library">Video library </string>
     <string name="ncc_library">Ncc library </string>
     <string name="file_selection">File selection</string>
-    <string name="autoUpgradeTipMessage">You have a file that needs to be upgraded, whether to upgrade or not</string>
+
+
 </resources>
