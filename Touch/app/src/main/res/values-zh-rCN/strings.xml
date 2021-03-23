@@ -73,4 +73,6 @@
 	<string name="auto_hid_coord">自动屏蔽坐标</string>
 	<string name="test_mode">测试模式</string>
 	<string name="autoUpgradeTipMessage">检测到您有一个可以升级的文件，是否升级？</string>
+	<string name="yes">确定</string>
+	<string name="cancel">取消</string>
 </resources>

@@ -72,6 +72,8 @@
     <string name="auto_hid_coord">Automatic shield coordinates</string>
     <string name="test_mode">Test mode</string>
     <string name="autoUpgradeTipMessage">Check if you have a file that can be upgraded?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
 
 
 

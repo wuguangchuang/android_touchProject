@@ -70,7 +70,7 @@ import static fragment_package.Setting_fragment.enterCalibrate;
 
 public class MainActivity extends AppCompatActivity{
 
-    public static String softwareVersion = "v1.2.6";
+    public static String softwareVersion = "v1.2.8";
 //    public static AppType appType = AppType.APP_FACTORY;
     public static AppType appType = AppType.APP_CLIENT;
 //    public static AppType appType = AppType.APP_RD;
@@ -967,7 +967,7 @@ public class MainActivity extends AppCompatActivity{
             chip = "设备没有读写权限,";
         }
         normalDialog.setMessage(chip+"是否切换到无触摸模式?");
-        normalDialog.setPositiveButton("确定",
+        normalDialog.setPositiveButton(getString(R.string.yes),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -976,7 +976,7 @@ public class MainActivity extends AppCompatActivity{
 
                     }
                 });
-        normalDialog.setNegativeButton("取消",
+        normalDialog.setNegativeButton(getString(R.string.cancel),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -998,7 +998,7 @@ public class MainActivity extends AppCompatActivity{
         touchInfo.noTouch = true;
         noTouch = true;
         String appInfo = "";
-        if(!hasPermission(touchInfo.dev)){
+        if(touchInfo.dev != null && !hasPermission(touchInfo.dev)){
             Log.d(TAG, "onReceive: 新增设备还没有权限，正在申请权限");
             int permissionRet = requestPermission(touchInfo.dev);
             touchInfo.permission = false;
@@ -1301,6 +1301,10 @@ public class MainActivity extends AppCompatActivity{
     public boolean openPort(UsbDevice device) {
         //获取设备接口，一般只有一个
 //        usbInterface = device.getInterface(0);
+        if(device == null)
+        {
+            Log.d(TAG, "打开端口的设备为空");
+        }
         try {
             Log.d(TAG, "openPort: device.getInterfaceCount() = "+ device.getInterfaceCount());
         }catch (NullPointerException e)
@@ -1739,7 +1743,8 @@ public class MainActivity extends AppCompatActivity{
             upgradePath = fileInfoList.get(i).getFilePath();
             File file = new File(upgradePath);		//获取其file对象
             File[] fs = file.listFiles();	//遍历path下的文件和目录，放在File数组中
-            Log.d(TAG, "startAutoUpgrade: U盘下面文件的个数 = " + fs.length);
+            if(fs == null || fs.length == 0)
+                break;
             for(File f:fs){					//遍历File[]数组
                 Log.d(TAG, "startAutoUpgrade: f = " + f.getName());
                 if(f.isFile() && f.canRead() && f.getName().equals(devName+".bin"))
