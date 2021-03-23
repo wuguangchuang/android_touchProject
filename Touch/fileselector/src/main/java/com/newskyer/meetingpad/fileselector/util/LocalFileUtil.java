@@ -657,11 +657,20 @@ public class LocalFileUtil {
                         String path = (String) getPath.invoke(obj, new Object[0]);
 
                         Log.d(TAG, "╔════════════════════════════════════════════════");
+                        Log.d(TAG, "║    removable : 111111111");
                         Log.d(TAG, "║  getUSBDevicesL(), Thread : " + Thread.currentThread().getName());
                         Log.d(TAG, "║    path : " + path);
                         Log.d(TAG, "║    isPrimary : " + isPrimary);
                         Log.d(TAG, "║    removable : " + removable);
                         Log.d(TAG, "╚════════════════════════════════════════════════");
+
+                        File file = new File(path);
+                        if(!file.canRead() || !file.canWrite())
+                        {
+                            Log.d(TAG, "getUSBDevicesL: " + path + " 文件没有读写的权限");
+
+                            continue;
+                        }
 
                         FileInfo fileInfo = new FileInfo();
                         fileInfo.setFileName(path);

@@ -4,11 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.newskyer.meetingpad.R;
 import com.newskyer.meetingpad.fileselector.file.adapter.FileListAdapter;
@@ -299,6 +299,7 @@ public class PathSelectorFragment extends Fragment {
         fileInfoList.add(fileInfoInner);
 
         fileInfoListUSB.clear();
+        Log.d("U盘","44444=================================================");
         fileInfoListUSB.addAll(LocalFileUtil.getUSBDevicesL(getContext()));
         fileInfoList.addAll(fileInfoListUSB);
 
@@ -435,6 +436,7 @@ public class PathSelectorFragment extends Fragment {
         fileInfoList.add(fileInfoInner);
 
         fileInfoListUSB.clear();
+        Log.d("U盘","5555=================================================");
         fileInfoListUSB.addAll(LocalFileUtil.getUSBDevicesL(getContext()));
         fileInfoList.addAll(fileInfoListUSB);
 

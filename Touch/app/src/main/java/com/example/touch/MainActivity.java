@@ -1733,6 +1733,7 @@ public class MainActivity extends AppCompatActivity{
         Log.d(TAG, "startAutoUpgrade: devname  = " + devName);
         int i = 0;
         String upgradePath = "";
+        Log.d("U盘","333333=================================================");
         List<FileInfo> fileInfoList = LocalFileUtil.getUSBDevicesL(this);
 
         boolean existUpgradeFile = false;

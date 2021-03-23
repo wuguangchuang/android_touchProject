@@ -249,6 +249,7 @@ public class CategoryFragment extends Fragment {
         fileInfoList.add(fileInfoInner);
 
         fileInfoListUSB.clear();
+        Log.d("U盘","111111=================================================");
         fileInfoListUSB.addAll(LocalFileUtil.getUSBDevicesL(getContext()));
         fileInfoList.addAll(fileInfoListUSB);
 
@@ -400,6 +401,7 @@ public class CategoryFragment extends Fragment {
         fileInfoList.add(fileInfoInner);
 
         fileInfoListUSB.clear();
+        Log.d("U盘","222222=================================================");
         fileInfoListUSB.addAll(LocalFileUtil.getUSBDevicesL(getContext()));
         fileInfoList.addAll(fileInfoListUSB);
 
